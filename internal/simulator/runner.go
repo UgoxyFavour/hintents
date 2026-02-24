@@ -4,12 +4,14 @@
 package simulator
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/dotandev/hintents/internal/logger"
 )
@@ -144,13 +146,44 @@ func (r *Runner) Run(req *SimulationRequest) (*SimulationResponse, error) {
 	cmd := exec.Command(r.BinaryPath)
 	cmd.Stdin = bytes.NewReader(inputBytes)
 
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
+	// Set environment variables for Rust logger
+	cmd.Env = append(os.Environ(),
+		fmt.Sprintf("RUST_LOG=%s", logger.GetRustLogLevel()),
+		fmt.Sprintf("ERST_LOG_FORMAT=%s", logger.GetRustLogFormat()),
+	)
 
-	if err := cmd.Run(); err != nil {
-		logger.Logger.Error("Simulator execution failed", "error", err, "stderr", stderr.String())
-		return nil, fmt.Errorf("simulator execution failed: %w, stderr: %s", err, stderr.String())
+	var stdout bytes.Buffer
+	cmd.Stdout = &stdout
+
+	// Create a pipe to capture and forward Rust stderr to Go logger
+	stderrPipe, err := cmd.StderrPipe()
+	if err != nil {
+		logger.Logger.Error("Failed to create stderr pipe", "error", err)
+		return nil, fmt.Errorf("failed to create stderr pipe: %w", err)
+	}
+
+	// Start the command
+	if err := cmd.Start(); err != nil {
+		logger.Logger.Error("Failed to start simulator", "error", err)
+		return nil, fmt.Errorf("failed to start simulator: %w", err)
+	}
+
+	// Read and log stderr from Rust in real-time
+	go func() {
+		scanner := bufio.NewScanner(stderrPipe)
+		for scanner.Scan() {
+			line := strings.TrimSpace(scanner.Text())
+			if line != "" {
+				// Forward Rust logs to Go logger with [rust] prefix
+				logger.Logger.Info("[rust] "+line, "source", "simulator")
+			}
+		}
+	}()
+
+	// Wait for command to complete
+	if err := cmd.Wait(); err != nil {
+		logger.Logger.Error("Simulator execution failed", "error", err)
+		return nil, fmt.Errorf("simulator execution failed: %w", err)
 	}
 
 	var resp SimulationResponse

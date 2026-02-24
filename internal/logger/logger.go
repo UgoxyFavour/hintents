@@ -18,6 +18,11 @@ var (
 	mu     sync.Mutex
 )
 
+// Custom log levels
+const (
+	LevelTrace = slog.Level(-8) // More verbose than Debug (-4)
+)
+
 func init() {
 	lvl := parseLevelFromEnv()
 	initLogger(lvl, os.Stderr, false)
@@ -25,12 +30,19 @@ func init() {
 
 func parseLevelFromEnv() slog.Level {
 	env := strings.ToUpper(os.Getenv("ERST_LOG_LEVEL"))
-	switch env {
+	return ParseLevel(env)
+}
+
+// ParseLevel converts a string to a slog.Level
+func ParseLevel(levelStr string) slog.Level {
+	switch strings.ToUpper(levelStr) {
+	case "TRACE":
+		return LevelTrace
 	case "DEBUG":
 		return slog.LevelDebug
 	case "INFO":
 		return slog.LevelInfo
-	case "WARN":
+	case "WARN", "WARNING":
 		return slog.LevelWarn
 	case "ERROR":
 		return slog.LevelError
@@ -101,4 +113,36 @@ func (h *TextHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
 
 func (h *TextHandler) WithGroup(name string) slog.Handler {
 	return &TextHandler{handler: h.handler.WithGroup(name)}
+}
+
+// Trace logs at trace level (more verbose than debug)
+func Trace(msg string, args ...any) {
+	Logger.Log(context.Background(), LevelTrace, msg, args...)
+}
+
+// GetRustLogLevel returns the Rust env_logger compatible log level string
+func GetRustLogLevel() string {
+	currentLevel := level.Level()
+	switch {
+	case currentLevel <= LevelTrace:
+		return "trace"
+	case currentLevel <= slog.LevelDebug:
+		return "debug"
+	case currentLevel <= slog.LevelInfo:
+		return "info"
+	case currentLevel <= slog.LevelWarn:
+		return "warn"
+	default:
+		return "error"
+	}
+}
+
+// GetRustLogFormat returns the format for Rust logger (json or text)
+func GetRustLogFormat() string {
+	// Check if we're using JSON format by inspecting the handler
+	// For now, we'll use an environment variable or default to text
+	if format := os.Getenv("ERST_LOG_FORMAT"); format == "json" {
+		return "json"
+	}
+	return "text"
 }

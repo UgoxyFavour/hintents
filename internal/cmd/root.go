@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"github.com/dotandev/hintents/internal/localization"
+	"github.com/dotandev/hintents/internal/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -13,6 +14,7 @@ var (
 	TimestampFlag int64
 	WindowFlag    int64
 	ProfileFlag   bool
+	LogLevelFlag  string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -39,6 +41,12 @@ Examples:
 
 Get started with 'erst debug --help' or visit the documentation.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		// Set log level if specified
+		if LogLevelFlag != "" {
+			level := logger.ParseLevel(LogLevelFlag)
+			logger.SetLevel(level)
+			logger.Logger.Debug("Log level set", "level", LogLevelFlag)
+		}
 		return localization.LoadTranslations()
 	},
 	SilenceUsage:  true,
@@ -72,6 +80,13 @@ func init() {
 		"profile",
 		false,
 		"Enable CPU/Memory profiling and generate a flamegraph SVG",
+	)
+
+	rootCmd.PersistentFlags().StringVar(
+		&LogLevelFlag,
+		"log-level",
+		"",
+		"Set log level (trace, debug, info, warn, error). Applies to both Go and Rust components",
 	)
 
 	// Register commands
