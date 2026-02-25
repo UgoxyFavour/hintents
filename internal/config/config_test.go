@@ -326,6 +326,53 @@ log_level = "trace"`
 	}
 }
 
+func TestLoad_ConfigPrecedence_LocalOverridesHome(t *testing.T) {
+	tmpDir := t.TempDir()
+	homeDir := filepath.Join(tmpDir, "home")
+	projectDir := filepath.Join(tmpDir, "project")
+
+	if err := os.MkdirAll(homeDir, 0700); err != nil {
+		t.Fatalf("failed to create home dir: %v", err)
+	}
+	if err := os.MkdirAll(projectDir, 0700); err != nil {
+		t.Fatalf("failed to create project dir: %v", err)
+	}
+
+	homeConfig := filepath.Join(homeDir, ".erst.toml")
+	if err := os.WriteFile(homeConfig, []byte(`rpc_url = "https://home.example.com"`), 0644); err != nil {
+		t.Fatalf("failed to write home config: %v", err)
+	}
+
+	localConfig := filepath.Join(projectDir, ".erst.toml")
+	if err := os.WriteFile(localConfig, []byte(`rpc_url = "https://local.example.com"`), 0644); err != nil {
+		t.Fatalf("failed to write local config: %v", err)
+	}
+
+	origHome := os.Getenv("HOME")
+	defer os.Setenv("HOME", origHome)
+	os.Setenv("HOME", homeDir)
+
+	origPwd, _ := os.Getwd()
+	defer func() {
+		_ = os.Chdir(origPwd)
+	}()
+	if err := os.Chdir(projectDir); err != nil {
+		t.Fatalf("failed to chdir: %v", err)
+	}
+
+	for _, key := range []string{"ERST_RPC_URL", "ERST_RPC_URLS", "STELLAR_RPC_URLS"} {
+		os.Unsetenv(key)
+	}
+
+	cfg, err := Load()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if cfg.RpcUrl != "https://local.example.com" {
+		t.Errorf("expected local config to override home, got %s", cfg.RpcUrl)
+	}
+}
+
 func TestValidNetworks(t *testing.T) {
 	networks := []Network{NetworkPublic, NetworkTestnet, NetworkFuturenet, NetworkStandalone}
 

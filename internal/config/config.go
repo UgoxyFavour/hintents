@@ -109,11 +109,15 @@ func (EnvParser) Parse(cfg *Config) error {
 	}
 	if v := os.Getenv("ERST_SIMULATOR_PATH"); v != "" {
 		cfg.SimulatorPath = v
+	} else if v := os.Getenv("ERST_SIM_PATH"); v != "" {
+		cfg.SimulatorPath = v
 	}
 	if v := os.Getenv("ERST_LOG_LEVEL"); v != "" {
 		cfg.LogLevel = v
 	}
 	if v := os.Getenv("ERST_CACHE_PATH"); v != "" {
+		cfg.CachePath = v
+	} else if v := os.Getenv("ERST_CACHE_DIR"); v != "" {
 		cfg.CachePath = v
 	}
 	if v := os.Getenv("ERST_RPC_TOKEN"); v != "" {
@@ -136,24 +140,18 @@ func (EnvParser) Parse(cfg *Config) error {
 
 	switch strings.ToLower(os.Getenv("ERST_CRASH_REPORTING")) {
 	case "":
-	case "1", "true", "yes":
+	case "1", "true", "yes", "on":
 		cfg.CrashReporting = true
-	case "0", "false", "no":
+	case "0", "false", "no", "off":
 		cfg.CrashReporting = false
 	default:
 		return errors.WrapValidationError("ERST_CRASH_REPORTING must be a boolean")
 	}
 
 	if urlsEnv := os.Getenv("ERST_RPC_URLS"); urlsEnv != "" {
-		cfg.RpcUrls = strings.Split(urlsEnv, ",")
-		for i := range cfg.RpcUrls {
-			cfg.RpcUrls[i] = strings.TrimSpace(cfg.RpcUrls[i])
-		}
+		cfg.RpcUrls = splitList(urlsEnv)
 	} else if urlsEnv := os.Getenv("STELLAR_RPC_URLS"); urlsEnv != "" {
-		cfg.RpcUrls = strings.Split(urlsEnv, ",")
-		for i := range cfg.RpcUrls {
-			cfg.RpcUrls[i] = strings.TrimSpace(cfg.RpcUrls[i])
-		}
+		cfg.RpcUrls = splitList(urlsEnv)
 	}
 
 	return nil
@@ -248,40 +246,12 @@ func LoadConfig() (*Config, error) {
 // Load loads the configuration from environment variables and TOML files.
 // The lifecycle follows three distinct phases: load, merge defaults, validate.
 func Load() (*Config, error) {
-	// Phase 1: Load from sources (env vars, then TOML file).
-	cfg := &Config{
-		RpcUrl:         getEnv("ERST_RPC_URL", ""),
-		Network:        Network(getEnv("ERST_NETWORK", "")),
-		SimulatorPath:  getEnv("ERST_SIMULATOR_PATH", ""),
-		LogLevel:       getEnv("ERST_LOG_LEVEL", ""),
-		CachePath:      getEnv("ERST_CACHE_PATH", ""),
-		RPCToken:       getEnv("ERST_RPC_TOKEN", ""),
-		CrashEndpoint:  getEnv("ERST_CRASH_ENDPOINT", ""),
-		CrashSentryDSN: getEnv("ERST_SENTRY_DSN", ""),
-		RequestTimeout: defaultRequestTimeout,
-	}
-
-	// ERST_REQUEST_TIMEOUT is an integer env var; parse it explicitly.
-	if v := os.Getenv("ERST_REQUEST_TIMEOUT"); v != "" {
-		if n, err := strconv.Atoi(v); err == nil && n > 0 {
-			cfg.RequestTimeout = n
+	cfg := &Config{}
+	parsers := []Parser{fileParser{}, EnvParser{}}
+	for _, parser := range parsers {
+		if err := parser.Parse(cfg); err != nil {
+			return nil, err
 		}
-	}
-
-	switch strings.ToLower(os.Getenv("ERST_CRASH_REPORTING")) {
-	case "1", "true", "yes":
-		cfg.CrashReporting = true
-	}
-
-	if urlsEnv := os.Getenv("ERST_RPC_URLS"); urlsEnv != "" {
-		cfg.RpcUrls = strings.Split(urlsEnv, ",")
-		for i := range cfg.RpcUrls {
-			cfg.RpcUrls[i] = strings.TrimSpace(cfg.RpcUrls[i])
-		}
-	}
-
-	if err := cfg.loadFromFile(); err != nil {
-		return nil, err
 	}
 
 	// Phase 2: Merge defaults for any fields still unset.
@@ -303,14 +273,20 @@ func (fileParser) Parse(cfg *Config) error {
 
 func (c *Config) loadFromFile() error {
 	paths := []string{
-		".erst.toml",
-		filepath.Join(os.ExpandEnv("$HOME"), ".erst.toml"),
 		"/etc/erst/config.toml",
 	}
 
+	if homeDir, err := os.UserHomeDir(); err == nil && homeDir != "" {
+		paths = append(paths, filepath.Join(homeDir, ".erst.toml"))
+	}
+	paths = append(paths, ".erst.toml")
+
 	for _, path := range paths {
-		if err := c.loadTOML(path); err == nil {
-			return nil
+		if err := c.loadTOML(path); err != nil {
+			if os.IsNotExist(err) {
+				continue
+			}
+			return err
 		}
 	}
 
@@ -333,7 +309,7 @@ func (c *Config) loadTOML(path string) error {
 func (c *Config) parseTOML(content string) error {
 	lines := strings.Split(content, "\n")
 	for _, line := range lines {
-		line = strings.TrimSpace(line)
+		line = strings.TrimSpace(stripInlineComment(line))
 
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
@@ -353,7 +329,10 @@ func (c *Config) parseTOML(content string) error {
 			parts := strings.Split(rawVal, ",")
 			var urls []string
 			for _, p := range parts {
-				urls = append(urls, strings.Trim(strings.TrimSpace(p), "\"'"))
+				item := strings.TrimSpace(strings.Trim(p, "\"'"))
+				if item != "" {
+					urls = append(urls, item)
+				}
 			}
 			c.RpcUrls = urls
 			continue
@@ -366,10 +345,7 @@ func (c *Config) parseTOML(content string) error {
 			c.RpcUrl = value
 		case "rpc_urls":
 			// Fallback if not an array but comma-separated string
-			c.RpcUrls = strings.Split(value, ",")
-			for i := range c.RpcUrls {
-				c.RpcUrls[i] = strings.TrimSpace(c.RpcUrls[i])
-			}
+			c.RpcUrls = splitList(value)
 		case "network":
 			c.Network = Network(value)
 		case "network_passphrase":
@@ -382,15 +358,15 @@ func (c *Config) parseTOML(content string) error {
 			c.CachePath = value
 		case "rpc_token":
 			c.RPCToken = value
-		case "crash_reporting":
-			switch strings.ToLower(value) {
-			case "true", "1", "yes":
-				c.CrashReporting = true
-			case "false", "0", "no":
-				c.CrashReporting = false
-			default:
-				return errors.WrapValidationError("crash_reporting must be a boolean")
-			}
+	case "crash_reporting":
+		switch strings.ToLower(value) {
+		case "true", "1", "yes", "on":
+			c.CrashReporting = true
+		case "false", "0", "no", "off":
+			c.CrashReporting = false
+		default:
+			return errors.WrapValidationError("crash_reporting must be a boolean")
+		}
 		case "crash_endpoint":
 			c.CrashEndpoint = value
 		case "crash_sentry_dsn":
@@ -475,19 +451,36 @@ func (c *Config) String() string {
 	)
 }
 
-func getEnv(key, defaultValue string) string {
-	// Only allow environment variables that are explicitly namespaced with ERST_
-	if !strings.HasPrefix(key, "ERST_") {
-		return defaultValue
+func splitList(value string) []string {
+	parts := strings.Split(value, ",")
+	out := make([]string, 0, len(parts))
+	for _, part := range parts {
+		item := strings.TrimSpace(part)
+		if item != "" {
+			out = append(out, item)
+		}
 	}
-
-	if value := os.Getenv(key); value != "" {
-		return value
-	}
-
-	return defaultValue
+	return out
 }
 
+func stripInlineComment(line string) string {
+	inSingle := false
+	inDouble := false
+	for i, ch := range line {
+		if ch == '"' && !inSingle {
+			inDouble = !inDouble
+			continue
+		}
+		if ch == '\'' && !inDouble {
+			inSingle = !inSingle
+			continue
+		}
+		if ch == '#' && !inSingle && !inDouble {
+			return strings.TrimSpace(line[:i])
+		}
+	}
+	return line
+}
 func DefaultConfig() *Config {
 	return &Config{
 		RpcUrl:         defaultConfig.RpcUrl,
