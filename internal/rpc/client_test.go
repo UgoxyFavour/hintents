@@ -307,6 +307,8 @@ func TestGetLedgerEntries_WithVerification(t *testing.T) {
 		// The actual verification logic is tested separately in verification_test.go
 		assert.True(t, true, "Verification integration is documented")
 	})
+}
+
 func TestGetLedgerEntries_ResponseTooLarge(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusRequestEntityTooLarge)
