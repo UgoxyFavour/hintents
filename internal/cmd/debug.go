@@ -1106,6 +1106,10 @@ func init() {
 	debugCmd.Flags().Uint32Var(&mockBaseFeeFlag, "mock-base-fee", 0, "Override base fee (stroops) for local fee sufficiency checks")
 	debugCmd.Flags().Uint64Var(&mockGasPriceFlag, "mock-gas-price", 0, "Override gas price multiplier for local fee sufficiency checks")
 
+	_ = debugCmd.RegisterFlagCompletionFunc("network", completeNetworkFlag)
+	_ = debugCmd.RegisterFlagCompletionFunc("compare-network", completeNetworkFlag)
+	_ = debugCmd.RegisterFlagCompletionFunc("theme", completeThemeFlag)
+
 	rootCmd.AddCommand(debugCmd)
 }
 

@@ -159,5 +159,8 @@ func init() {
 	explainCmd.Flags().StringVarP(&explainNetworkFlag, "network", "n", "mainnet", "Stellar network (testnet, mainnet, futurenet)")
 	explainCmd.Flags().StringVar(&explainRPCURLFlag, "rpc-url", "", "Custom RPC URL")
 	explainCmd.Flags().StringVar(&explainRPCToken, "rpc-token", "", "RPC authentication token (can also use ERST_RPC_TOKEN env var)")
+
+	_ = explainCmd.RegisterFlagCompletionFunc("network", completeNetworkFlag)
+
 	rootCmd.AddCommand(explainCmd)
 }

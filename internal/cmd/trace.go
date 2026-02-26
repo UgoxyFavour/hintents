@@ -94,5 +94,8 @@ func init() {
 	traceCmd.Flags().StringVar(&traceThemeFlag, "theme", "", "Color theme (default, deuteranopia, protanopia, tritanopia, high-contrast)")
 	traceCmd.Flags().BoolVar(&tracePrint, "print", false, "Print a rich ASCII tree report and exit (non-interactive)")
 	traceCmd.Flags().BoolVar(&traceNoColor, "no-color", false, "Disable ANSI colour output (also honoured via NO_COLOR env var)")
+
+	_ = traceCmd.RegisterFlagCompletionFunc("theme", completeThemeFlag)
+
 	rootCmd.AddCommand(traceCmd)
 }

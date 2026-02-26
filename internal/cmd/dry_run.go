@@ -57,6 +57,8 @@ func init() {
 	dryRunCmd.Flags().StringVar(&dryRunRPCURLFlag, "rpc-url", "", "Custom Horizon RPC URL to use")
 	dryRunCmd.Flags().StringVar(&dryRunRPCTokenFlag, "rpc-token", "", "RPC authentication token (can also use ERST_RPC_TOKEN env var)")
 
+	_ = dryRunCmd.RegisterFlagCompletionFunc("network", completeNetworkFlag)
+
 	rootCmd.AddCommand(dryRunCmd)
 }
 
@@ -125,6 +127,11 @@ func runDryRun(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return errors.WrapRPCConnectionFailed(err)
 	}
+
+	// Warn if the fetched ledger entries exceed the Soroban network size limit.
+	// The network rejects transactions whose footprint exceeds 1 MiB, so there
+	// is no point invoking the simulator — the tx will never land on-chain.
+	simulator.WarnLedgerEntriesSizeToStderr(ledgerEntries)
 
 	runner, err := simulator.NewRunner("", false)
 	if err != nil {

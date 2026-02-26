@@ -107,7 +107,8 @@ func init() {
 		"Colour theme (default, deuteranopia, protanopia, tritanopia, high-contrast)")
 	compareCmd.Flags().Uint32Var(&cmpProtoFlag, "protocol-version", 0,
 		"Override protocol version for both simulation passes (20, 21, 22, …)")
-
+	_ = compareCmd.RegisterFlagCompletionFunc("network", completeNetworkFlag)
+	_ = compareCmd.RegisterFlagCompletionFunc("theme", completeThemeFlag)
 	rootCmd.AddCommand(compareCmd)
 }
 
