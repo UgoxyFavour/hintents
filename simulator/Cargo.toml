@@ -30,7 +30,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
 inferno = "0.11"
 jsonschema = "0.40.2"
-object = "0.38.1"
+object = { version = "0.38.1", features = ["wasm"] }
 gimli = "0.31"
 wasmparser = "0.245.1"
 sha2 = "0.10.9"

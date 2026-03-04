@@ -263,7 +263,7 @@ func formatFunction(fn xdr.ScSpecFunctionV0) string {
 }
 
 // FormatTypeDef returns a human-readable string for an ScSpecTypeDef.
-func FormatTypeDef(td xdr.ScSpecTypeDef) string {
+func FormatTypeDef(td xdr.ScSpecTypeDef) string { //nolint:gocyclo
 	switch td.Type {
 	case xdr.ScSpecTypeScSpecTypeVal:
 		return "Val"

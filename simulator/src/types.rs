@@ -21,6 +21,7 @@ pub struct SimulationRequest {
     /// RFC 3339 timestamp supplied by the caller.  Preserved for future use
     /// (e.g. time-locked contract logic); not yet consumed by the simulator.
     #[allow(dead_code)]
+    #[serde(default)]
     pub timestamp: String,
     pub mock_base_fee: Option<u32>,
     pub mock_gas_price: Option<u64>,

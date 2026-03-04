@@ -268,15 +268,25 @@ func checkConfigTOML(verbose bool) DependencyStatus {
 			continue
 		}
 
-		// simple syntax sniff: non-empty, non-comment lines must contain '='
+		// simple syntax sniff: non-empty, non-comment lines must contain 'key = value'
 		for ln, line := range strings.Split(string(data), "\n") {
 			trim := strings.TrimSpace(line)
-			if trim == "" || strings.HasPrefix(trim, "#") {
+			if trim == "" || strings.HasPrefix(trim, "#") || strings.HasPrefix(trim, "[") {
 				continue
 			}
-			if !strings.Contains(trim, "=") {
+			eqIdx := strings.Index(trim, "=")
+			if eqIdx < 0 {
 				if verbose {
 					dep.FixHint = fmt.Sprintf("%s (line %d missing '=')", dep.FixHint, ln+1)
+				}
+				return dep
+			}
+			// key must be non-empty and value must be non-empty
+			key := strings.TrimSpace(trim[:eqIdx])
+			val := strings.TrimSpace(trim[eqIdx+1:])
+			if key == "" || val == "" {
+				if verbose {
+					dep.FixHint = fmt.Sprintf("%s (line %d has invalid key=value)", dep.FixHint, ln+1)
 				}
 				return dep
 			}
@@ -303,7 +313,7 @@ func checkRPC(verbose bool) DependencyStatus {
 		url = env
 	}
 
-	client, err := rpc.NewClient(rpc.WithHorizonURL(url))
+	client, err := rpc.NewClient(rpc.WithHorizonURL(url), rpc.WithSorobanURL(url))
 	if err != nil {
 		return dep
 	}

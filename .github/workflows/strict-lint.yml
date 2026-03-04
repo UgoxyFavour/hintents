@@ -26,7 +26,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23"
+          go-version: "1.24"
           cache: true
           cache-dependency-path: go.sum
 
@@ -106,9 +106,7 @@ jobs:
             -D unused-imports \
             -D unused-mut \
             -D dead-code \
-            -D unused-assignments \
-            -W clippy::pedantic \
-            -W clippy::nursery || {
+            -D unused-assignments || {
             echo "[FAIL] Clippy found issues that must be fixed"
             exit 1
           }

@@ -74,11 +74,11 @@ func runShell(cmd *cobra.Command, args []string) error {
 	ctx := context.Background()
 
 	// Initialize RPC client
+	var rpcClient *rpc.Client
 	opts := []rpc.ClientOption{rpc.WithNetwork(rpc.Network(shellNetworkFlag))}
 	if shellRPCToken != "" {
 		opts = append(opts, rpc.WithToken(shellRPCToken))
 	}
-	var rpcClient *rpc.Client
 	if shellRPCURLFlag != "" {
 		rpcClient = rpc.NewClientWithURLOption(shellRPCURLFlag, rpc.Network(shellNetworkFlag), shellRPCToken)
 	} else {

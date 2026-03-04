@@ -306,7 +306,7 @@ mod tests {
         let mapper = SourceMapper::new(wasm_bytes);
 
         assert!(!mapper.has_debug_symbols());
-        assert!(mapper._map_wasm_offset_to_source(0x1234).is_none());
+        assert!(mapper.map_wasm_offset_to_source(0x1234).is_none());
     }
 
     #[test]

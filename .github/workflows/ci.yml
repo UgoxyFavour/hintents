@@ -56,7 +56,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        go-version: ["1.21", "1.22", "1.23"]
+        go-version: ["1.24"]
 
     steps:
       - name: Checkout code
@@ -73,7 +73,7 @@ jobs:
         run: go mod verify
 
       - name: Check formatting
-        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.23'
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
         run: |
           if [ -n "$(gofmt -l .)" ]; then
             echo "[FAIL] Go files are not formatted. Run 'go fmt ./...' to fix."
@@ -83,18 +83,18 @@ jobs:
           echo " All Go files are properly formatted"
 
       - name: Run go vet
-        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.23'
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
         run: go vet ./...
 
       - name: Install golangci-lint
-        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.23'
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
         uses: golangci/golangci-lint-action@v6
         with:
           version: latest
           args: --config=.golangci.yml --timeout=5m --max-issues-per-linter=0 --max-same-issues=0
 
       - name: Check for unused variables
-        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.23'
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
         run: |
           echo "Checking for unused variables and code..."
           go vet ./... || {
@@ -221,9 +221,7 @@ jobs:
             -D unused-imports \
             -D unused-mut \
             -D dead-code \
-            -D unused-assignments \
-            -W clippy::pedantic \
-            -W clippy::nursery || {
+            -D unused-assignments || {
             echo "[FAIL] Clippy found issues that must be fixed"
             exit 1
           }

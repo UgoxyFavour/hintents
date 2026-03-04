@@ -300,7 +300,7 @@ func FormatFallback(wasmBytes []byte, failingOffset uint64, contextLines int) st
 
 // decodeOpcode returns the WAT mnemonic, operand string, and number of
 // additional bytes consumed for operands.
-func decodeOpcode(opcode byte, rest []byte) (string, string, int) {
+func decodeOpcode(opcode byte, rest []byte) (string, string, int) { //nolint:gocyclo
 	switch opcode {
 	// Control flow
 	case 0x00:

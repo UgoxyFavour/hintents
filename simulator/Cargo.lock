@@ -1680,6 +1680,7 @@ dependencies = [
  "flate2",
  "memchr",
  "ruzstd",
+ "wasmparser 0.243.0",
 ]
 
 [[package]]
@@ -3080,6 +3081,15 @@ checksum = "a58e28b80dd8340cb07b8242ae654756161f6fc8d0038123d679b7b99964fa50"
 dependencies = [
  "indexmap",
  "semver",
+]
+
+[[package]]
+name = "wasmparser"
+version = "0.243.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f6d8db401b0528ec316dfbe579e6ab4152d61739cfe076706d2009127970159d"
+dependencies = [
+ "bitflags",
 ]
 
 [[package]]

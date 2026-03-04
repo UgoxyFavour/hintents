@@ -102,7 +102,8 @@ The session ID can be auto-generated or specified with --id flag.`,
 		defer store.Close()
 
 		// Run cleanup before save
-		if err := store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions); err != nil {
+		err = store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions)
+		if err != nil {
 			// Log but don't fail on cleanup errors
 			fmt.Fprintf(os.Stderr, "Warning: cleanup failed: %v\n", err)
 		}
@@ -147,7 +148,8 @@ Use 'erst session list' to see available sessions.`,
 		defer store.Close()
 
 		// Run cleanup
-		if err := store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions); err != nil {
+		err = store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions)
+		if err != nil {
 			fmt.Fprintf(os.Stderr, "Warning: session cleanup failed: %v\n", err)
 		}
 
@@ -232,7 +234,8 @@ Displays session ID, network, last access time, and transaction hash.`,
 		defer store.Close()
 
 		// Run cleanup
-		if err := store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions); err != nil {
+		err = store.Cleanup(ctx, session.DefaultTTL, session.DefaultMaxSessions)
+		if err != nil {
 			fmt.Fprintf(os.Stderr, "Warning: session cleanup failed: %v\n", err)
 		}
 
