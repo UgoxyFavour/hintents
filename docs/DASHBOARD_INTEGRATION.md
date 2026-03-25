@@ -24,6 +24,12 @@ You can check if the protocol is correctly registered by running:
 erst protocol:status
 ```
 
+For a more detailed OS-level validation of the registration artifacts, run:
+
+```bash
+erst protocol:verify
+```
+
 ## Usage
 
 ### From Stellar Dashboard

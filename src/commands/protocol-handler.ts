@@ -109,4 +109,38 @@ export function registerProtocolCommands(program: Command): void {
                 process.exit(1);
             }
         });
+
+    // 5. Registration Verification
+    program
+        .command('protocol:verify')
+        .description('Verify the OS-specific erst:// protocol handler registration details')
+        .action(async () => {
+            try {
+                const registrar = new ProtocolRegistrar();
+                const verification = await registrar.verifyRegistration();
+
+                console.log(`Protocol verification for ${verification.protocol}:// on ${verification.platform}`);
+
+                for (const check of verification.checks) {
+                    const prefix = check.success ? '[OK]' : '[FAIL]';
+                    console.log(`${prefix} ${check.name}: ${check.details}`);
+                }
+
+                if (!verification.registered) {
+                    console.error('[FAIL] Protocol registration verification failed');
+                    process.exit(1);
+                    return;
+                }
+
+                console.log('[OK] Protocol registration verification succeeded');
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(`[FAIL] Verification failed: ${error.message}`);
+                } else {
+                    console.error('[FAIL] Verification failed: An unknown error occurred');
+                }
+                process.exit(1);
+                return;
+            }
+        });
 }
