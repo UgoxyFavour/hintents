@@ -410,6 +410,7 @@ mod contract_execution_tests {
             result_meta_xdr: String::new(),
             ledger_entries: None,
             contract_wasm: None,
+            contract_wasms: None,
             wasm_path: None,
             no_cache: false,
             enable_optimization_advisor: false,

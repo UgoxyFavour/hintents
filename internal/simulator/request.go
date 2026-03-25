@@ -7,6 +7,8 @@ type SimulationRequest struct {
 	EnvelopeXdr      string            `json:"envelope_xdr"`
 	ResultMetaXdr    string            `json:"result_meta_xdr"`
 	LedgerEntries    map[string]string `json:"ledger_entries,omitempty"`
+	ContractWasm     *string           `json:"contract_wasm,omitempty"`
+	ContractWasms    map[string]string `json:"contract_wasms,omitempty"`
 	Timestamp        int64             `json:"timestamp,omitempty"`
 	LedgerSequence   uint32            `json:"ledger_sequence,omitempty"`
 	WasmPath         *string           `json:"wasm_path,omitempty"`

@@ -2,17 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::git_detector::GitRepository;
+use crate::stack_trace::StackFrame;
 use gimli::{self, ColumnType, Dwarf, EndianSlice, Reader, RunTimeEndian, SectionId};
 use object::{Object, ObjectSection};
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
+use std::collections::HashMap;
 use std::path::PathBuf;
 
 pub struct SourceMapper {
-    has_symbols: bool,
-    line_cache: Vec<CachedLineEntry>,
-    git_repo: Option<GitRepository>,
+    contracts: HashMap<String, ContractSymbols>,
 }
+
+const ROOT_CONTRACT_KEY: &str = "__root__";
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -31,6 +33,13 @@ struct CachedLineEntry {
     location: SourceLocation,
 }
 
+#[derive(Debug, Clone)]
+struct ContractSymbols {
+    has_symbols: bool,
+    line_cache: Vec<CachedLineEntry>,
+    git_repo: Option<GitRepository>,
+}
+
 impl SourceMapper {
     /// Creates a new SourceMapper with caching enabled
     pub fn new(wasm_bytes: Vec<u8>) -> Self {
@@ -40,6 +49,39 @@ impl SourceMapper {
     /// Creates a new SourceMapper, bypassing the cache when `no_cache` is true.
     /// When `no_cache` is true, WASM debug symbols are always re-parsed from scratch.
     pub fn new_with_options(wasm_bytes: Vec<u8>, no_cache: bool) -> Self {
+        let mut contracts = HashMap::new();
+        contracts.insert(
+            ROOT_CONTRACT_KEY.to_string(),
+            Self::load_contract_symbols(wasm_bytes, no_cache),
+        );
+
+        Self { contracts }
+    }
+
+    /// Creates a SourceMapper that can resolve offsets for the root contract
+    /// and any number of additional contracts keyed by contract ID.
+    pub fn new_multi_with_options(
+        root_wasm_bytes: Option<Vec<u8>>,
+        contract_wasms: HashMap<String, Vec<u8>>,
+        no_cache: bool,
+    ) -> Self {
+        let mut contracts = HashMap::new();
+
+        if let Some(root_wasm_bytes) = root_wasm_bytes {
+            contracts.insert(
+                ROOT_CONTRACT_KEY.to_string(),
+                Self::load_contract_symbols(root_wasm_bytes, no_cache),
+            );
+        }
+
+        for (contract_id, wasm_bytes) in contract_wasms {
+            contracts.insert(contract_id, Self::load_contract_symbols(wasm_bytes, no_cache));
+        }
+
+        Self { contracts }
+    }
+
+    fn load_contract_symbols(wasm_bytes: Vec<u8>, no_cache: bool) -> ContractSymbols {
         if no_cache {
             eprintln!("--no-cache: skipping cache, re-parsing WASM symbols from scratch.");
         }
@@ -52,7 +94,7 @@ impl SourceMapper {
             Vec::new()
         };
 
-        Self {
+        ContractSymbols {
             has_symbols,
             line_cache,
             git_repo,
@@ -231,11 +273,20 @@ impl SourceMapper {
     }
 
     pub fn map_wasm_offset_to_source(&self, wasm_offset: u64) -> Option<SourceLocation> {
-        if !self.has_symbols || self.line_cache.is_empty() {
+        self.map_wasm_offset_to_source_for_contract(None, wasm_offset)
+    }
+
+    pub fn map_wasm_offset_to_source_for_contract(
+        &self,
+        contract_id: Option<&str>,
+        wasm_offset: u64,
+    ) -> Option<SourceLocation> {
+        let symbols = self.select_contract_symbols(contract_id)?;
+        if !symbols.has_symbols || symbols.line_cache.is_empty() {
             return None;
         }
 
-        let idx = match self
+        let idx = match symbols
             .line_cache
             .binary_search_by_key(&wasm_offset, |entry| entry.start)
         {
@@ -244,7 +295,7 @@ impl SourceMapper {
             Err(index) => index.saturating_sub(1),
         };
 
-        let entry = self.line_cache.get(idx)?;
+        let entry = symbols.line_cache.get(idx)?;
         if let Some(end) = entry.end {
             if wasm_offset >= end {
                 return None;
@@ -254,11 +305,22 @@ impl SourceMapper {
         let mut location = entry.location.clone();
 
         // Add GitHub link if available
-        if let Some(ref git_repo) = self.git_repo {
+        if let Some(ref git_repo) = symbols.git_repo {
             location.github_link = git_repo.generate_file_link(&location.file, location.line);
         }
 
         Some(location)
+    }
+
+    pub fn map_frame_to_source(&self, frame: &StackFrame) -> Option<SourceLocation> {
+        let offset = frame.wasm_offset?;
+        self.map_wasm_offset_to_source_for_contract(frame.module.as_deref(), offset)
+    }
+
+    pub fn map_stack_trace_to_source(&self, frames: &[StackFrame]) -> Option<SourceLocation> {
+        frames
+            .iter()
+            .find_map(|frame| self.map_frame_to_source(frame))
     }
 
     #[allow(dead_code)]
@@ -269,8 +331,8 @@ impl SourceMapper {
         column: Option<u32>,
     ) -> SourceLocation {
         let github_link = self
-            .git_repo
-            .as_ref()
+            .select_contract_symbols(None)
+            .and_then(|symbols| symbols.git_repo.as_ref())
             .and_then(|repo| repo.generate_file_link(&file, line));
 
         SourceLocation {
@@ -283,7 +345,23 @@ impl SourceMapper {
     }
 
     pub fn has_debug_symbols(&self) -> bool {
-        self.has_symbols
+        self.has_debug_symbols_for_contract(None)
+    }
+
+    pub fn has_any_debug_symbols(&self) -> bool {
+        self.contracts.values().any(|symbols| symbols.has_symbols)
+    }
+
+    pub fn has_debug_symbols_for_contract(&self, contract_id: Option<&str>) -> bool {
+        self.select_contract_symbols(contract_id)
+            .map(|symbols| symbols.has_symbols)
+            .unwrap_or(false)
+    }
+
+    fn select_contract_symbols(&self, contract_id: Option<&str>) -> Option<&ContractSymbols> {
+        contract_id
+            .and_then(|id| self.contracts.get(id))
+            .or_else(|| self.contracts.get(ROOT_CONTRACT_KEY))
     }
 }
 
@@ -294,10 +372,18 @@ mod tests {
     use tempfile::TempDir;
 
     fn mapper_with_cache(entries: Vec<CachedLineEntry>) -> SourceMapper {
+        let mut contracts = HashMap::new();
+        contracts.insert(
+            ROOT_CONTRACT_KEY.to_string(),
+            ContractSymbols {
+                has_symbols: true,
+                line_cache: entries,
+                git_repo: None,
+            },
+        );
+
         SourceMapper {
-            has_symbols: true,
-            line_cache: entries,
-            git_repo: None,
+            contracts,
         }
     }
 
@@ -370,6 +456,63 @@ mod tests {
         }]);
 
         assert!(mapper.map_wasm_offset_to_source(0x20).is_none());
+    }
+
+    #[test]
+    fn test_multi_contract_lookup_prefers_frame_module() {
+        let root_location = SourceLocation {
+            file: "root.rs".into(),
+            line: 10,
+            column: Some(1),
+            column_end: None,
+            github_link: None,
+        };
+        let token_location = SourceLocation {
+            file: "token.rs".into(),
+            line: 42,
+            column: Some(7),
+            column_end: None,
+            github_link: None,
+        };
+
+        let mut contracts = HashMap::new();
+        contracts.insert(
+            ROOT_CONTRACT_KEY.to_string(),
+            ContractSymbols {
+                has_symbols: true,
+                line_cache: vec![CachedLineEntry {
+                    start: 0x100,
+                    end: Some(0x200),
+                    location: root_location,
+                }],
+                git_repo: None,
+            },
+        );
+        contracts.insert(
+            "token".to_string(),
+            ContractSymbols {
+                has_symbols: true,
+                line_cache: vec![CachedLineEntry {
+                    start: 0x100,
+                    end: Some(0x200),
+                    location: token_location,
+                }],
+                git_repo: None,
+            },
+        );
+
+        let mapper = SourceMapper { contracts };
+        let frame = StackFrame {
+            index: 0,
+            func_index: Some(7),
+            func_name: Some("token::transfer".into()),
+            wasm_offset: Some(0x120),
+            module: Some("token".into()),
+        };
+
+        let loc = mapper.map_frame_to_source(&frame).expect("frame should resolve");
+        assert_eq!(loc.file, "token.rs");
+        assert_eq!(loc.line, 42);
     }
 
     #[test]

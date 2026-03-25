@@ -193,6 +193,46 @@ fn execute_operations(
     Ok(logs)
 }
 
+fn build_source_mapper(request: &SimulationRequest) -> Option<SourceMapper> {
+    let root_wasm = request.contract_wasm.as_ref().and_then(|wasm_base64| {
+        match base64::engine::general_purpose::STANDARD.decode(wasm_base64) {
+            Ok(wasm_bytes) => Some(wasm_bytes),
+            Err(e) => {
+                eprintln!("Failed to decode root WASM base64: {e}");
+                None
+            }
+        }
+    });
+
+    let mut contract_wasms = HashMap::new();
+    if let Some(extra_wasms) = &request.contract_wasms {
+        for (contract_id, wasm_base64) in extra_wasms {
+            match base64::engine::general_purpose::STANDARD.decode(wasm_base64) {
+                Ok(wasm_bytes) => {
+                    contract_wasms.insert(contract_id.clone(), wasm_bytes);
+                }
+                Err(e) => {
+                    eprintln!("Failed to decode contract WASM base64 for {contract_id}: {e}");
+                }
+            }
+        }
+    }
+
+    let has_inputs = root_wasm.is_some() || !contract_wasms.is_empty();
+    if !has_inputs {
+        return None;
+    }
+
+    let mapper = SourceMapper::new_multi_with_options(root_wasm, contract_wasms, request.no_cache);
+    if mapper.has_any_debug_symbols() {
+        eprintln!("Debug symbols found in one or more WASM modules");
+        Some(mapper)
+    } else {
+        eprintln!("No debug symbols found in provided WASM modules");
+        None
+    }
+}
+
 /// Encode an ScVal to base64-encoded XDR, matching Soroban CLI output format.
 fn scval_to_xdr_base64(val: &soroban_env_host::xdr::ScVal) -> String {
     base64::engine::general_purpose::STANDARD.encode(
@@ -447,30 +487,20 @@ fn main() {
         }
     };
 
-    // Initialize source mapper if WASM is provided
-    let source_mapper = if let Some(wasm_base64) = &request.contract_wasm {
+    if let Some(wasm_base64) = &request.contract_wasm {
         match base64::engine::general_purpose::STANDARD.decode(wasm_base64) {
             Ok(wasm_bytes) => {
                 if let Err(e) = vm::enforce_soroban_compatibility(&wasm_bytes) {
                     return send_error(format!("Strict VM enforcement failed: {}", e));
                 }
-                let mapper = SourceMapper::new_with_options(wasm_bytes, request.no_cache);
-                if mapper.has_debug_symbols() {
-                    eprintln!("Debug symbols found in WASM");
-                    Some(mapper)
-                } else {
-                    eprintln!("No debug symbols found in WASM");
-                    None
-                }
             }
             Err(e) => {
                 eprintln!("Failed to decode WASM base64: {e}");
-                None
             }
         }
-    } else {
-        None
-    };
+    }
+
+    let source_mapper = build_source_mapper(&request);
 
     // Initialize Host
     let sim_host = runner::SimHost::new(
@@ -868,12 +898,11 @@ fn main() {
             let error_msg = format!("{:?}", host_error);
             let wasm_offset = extract_wasm_offset(&error_msg);
 
-            let source_location =
-                if let (Some(offset), Some(mapper)) = (wasm_offset, &source_mapper) {
-                    mapper.map_wasm_offset_to_source(offset)
-                } else {
-                    None
-                };
+            let source_location = source_mapper.as_ref().and_then(|mapper| {
+                mapper
+                    .map_stack_trace_to_source(&wasm_trace.frames)
+                    .or_else(|| wasm_offset.and_then(|offset| mapper.map_wasm_offset_to_source(offset)))
+            });
 
             let error_msg = format!("{:?}", host_error);
             let wasm_offset = extract_wasm_offset(&error_msg);

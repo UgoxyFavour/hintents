@@ -51,6 +51,7 @@ mod restore_preamble_tests {
             result_meta_xdr: "".to_string(),
             ledger_entries: None,
             contract_wasm: None,
+            contract_wasms: None,
             wasm_path: None,
             no_cache: false,
             enable_optimization_advisor: false,

@@ -15,6 +15,8 @@ pub struct SimulationRequest {
     pub result_meta_xdr: String,
     pub ledger_entries: Option<HashMap<String, String>>,
     pub contract_wasm: Option<String>,
+    #[serde(default)]
+    pub contract_wasms: Option<HashMap<String, String>>,
     pub wasm_path: Option<String>, // Added for local loading
     #[serde(default)]
     pub no_cache: bool,

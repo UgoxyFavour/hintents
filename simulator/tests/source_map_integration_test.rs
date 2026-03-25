@@ -21,6 +21,8 @@ use gimli::write::{
 use gimli::{EndianSlice, LineEncoding, LittleEndian, SectionId};
 use object::{Object, ObjectSection};
 use simulator::source_mapper::SourceMapper;
+use simulator::stack_trace::StackFrame;
+use std::collections::HashMap;
 
 // Address in the fixture that maps to src/test.rs:42
 const CRASH_ADDR: u64 = 0x1000;
@@ -34,6 +36,18 @@ const CRASH_ADDR: u64 = 0x1000;
 ///   `src/test.rs` line 42.
 fn build_wasm_fixture() -> Vec<u8> {
     let debug_line_bytes = build_debug_line_section();
+    let debug_abbrev_bytes = build_debug_abbrev_section();
+    let debug_info_bytes = build_debug_info_section();
+
+    let mut wasm = vec![0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00];
+    wasm.extend(wasm_custom_section(b".debug_abbrev", &debug_abbrev_bytes));
+    wasm.extend(wasm_custom_section(b".debug_info", &debug_info_bytes));
+    wasm.extend(wasm_custom_section(b".debug_line", &debug_line_bytes));
+    wasm
+}
+
+fn build_wasm_fixture_for(file: &str, line: u64, address: u64) -> Vec<u8> {
+    let debug_line_bytes = build_debug_line_section_for(file, line, address);
     let debug_abbrev_bytes = build_debug_abbrev_section();
     let debug_info_bytes = build_debug_info_section();
 
@@ -76,6 +90,51 @@ fn build_debug_line_section() -> Vec<u8> {
     program.end_sequence(4); // sequence spans 4 bytes past the first instruction
 
     // Write into a Sections container and extract the debug_line bytes.
+    let mut sections = Sections::new(EndianVec::new(LittleEndian));
+    program
+        .write(
+            &mut sections.debug_line,
+            encoding,
+            &DebugLineStrOffsets::none(),
+            &DebugStrOffsets::none(),
+        )
+        .expect("gimli::write failed to serialize line program");
+
+    let mut debug_line_bytes = Vec::new();
+    sections
+        .for_each(|id, writer| {
+            if id == SectionId::DebugLine {
+                debug_line_bytes = writer.slice().to_vec();
+            }
+            Ok::<_, gimli::write::Error>(())
+        })
+        .expect("sections.for_each failed");
+
+    debug_line_bytes
+}
+
+fn build_debug_line_section_for(file: &str, line: u64, address: u64) -> Vec<u8> {
+    let encoding = gimli::Encoding {
+        format: gimli::Format::Dwarf32,
+        version: 4,
+        address_size: 4,
+    };
+
+    let comp_dir = LineString::String(b"".to_vec());
+    let comp_file = LineString::String(file.as_bytes().to_vec());
+
+    let mut program =
+        LineProgram::new(encoding, LineEncoding::default(), comp_dir, comp_file, None);
+
+    let dir_id = program.default_directory();
+    let file_id = program.add_file(LineString::String(file.as_bytes().to_vec()), dir_id, None);
+
+    program.begin_sequence(Some(Address::Constant(address)));
+    program.row().file = file_id;
+    program.row().line = line;
+    program.generate_row();
+    program.end_sequence(4);
+
     let mut sections = Sections::new(EndianVec::new(LittleEndian));
     program
         .write(
@@ -264,4 +323,30 @@ fn source_map_wasm_without_symbols_yields_none() {
         mapper.map_wasm_offset_to_source(CRASH_ADDR).is_none(),
         "lookup on a symbol-free WASM must return None"
     );
+}
+
+#[test]
+fn source_map_multi_contract_stack_frames_use_module_specific_mapper() {
+    let root_wasm = build_wasm_fixture_for("src/root.rs", 11, CRASH_ADDR);
+    let token_wasm = build_wasm_fixture_for("src/token.rs", 77, CRASH_ADDR);
+    let mapper = SourceMapper::new_multi_with_options(
+        Some(root_wasm),
+        HashMap::from([("token".to_string(), token_wasm)]),
+        false,
+    );
+
+    let frame = StackFrame {
+        index: 0,
+        func_index: Some(3),
+        func_name: Some("token::transfer".to_string()),
+        wasm_offset: Some(CRASH_ADDR),
+        module: Some("token".to_string()),
+    };
+
+    let loc = mapper
+        .map_stack_trace_to_source(&[frame])
+        .expect("module-aware stack mapping should resolve");
+
+    assert_eq!(loc.file, "src/token.rs");
+    assert_eq!(loc.line, 77);
 }
