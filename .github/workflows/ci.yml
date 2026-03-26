@@ -59,7 +59,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check license headers in Go and Rust files
+      - name: Check license headers (Go, Rust, TypeScript)
         run: ./scripts/check-license-headers.sh
 
       - name: Guard against conflict markers and leaked secrets
