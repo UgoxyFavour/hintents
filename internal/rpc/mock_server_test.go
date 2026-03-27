@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -386,3 +386,7 @@ func TestMockServer_EmptyBody(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Empty(t, body)
 }
+
+
+
+

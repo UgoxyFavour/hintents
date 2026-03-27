@@ -108,3 +108,5 @@ if (hasErrors) {
   console.log('[OK] All schema files are valid!');
   process.exit(0);
 }
+
+

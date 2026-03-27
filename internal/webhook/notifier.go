@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package webhook
@@ -154,3 +154,7 @@ func (sn *SimulatorNotifier) IsEnabled() bool {
 func (sn *SimulatorNotifier) ClientCount() int {
 	return len(sn.clients)
 }
+
+
+
+

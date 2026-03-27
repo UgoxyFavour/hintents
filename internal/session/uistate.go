@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package session
@@ -167,3 +167,7 @@ func (s *UIStateStore) RecentSearches(ctx context.Context, limit int) ([]string,
 func (s *UIStateStore) Close() error {
 	return s.db.Close()
 }
+
+
+
+

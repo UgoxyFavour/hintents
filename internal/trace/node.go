@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -160,3 +160,7 @@ func (n *TraceNode) IsCrossContractCall() bool {
 	}
 	return n.ContractID != n.Parent.ContractID
 }
+
+
+
+

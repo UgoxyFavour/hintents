@@ -27,3 +27,5 @@ fn merge_storage_state(before: &[LedgerEntry], changes: &[LedgerEntryChange]) ->
 
     state.into_values().collect()
 }
+
+

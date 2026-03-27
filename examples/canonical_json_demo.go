@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package main
@@ -172,3 +172,7 @@ func calculateHash(payload cmd.Payload) string {
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
 }
+
+
+
+

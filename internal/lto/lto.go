@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package lto detects Link Time Optimization (LTO) settings in Soroban
@@ -275,3 +275,7 @@ func HasFatLTO(results []DetectionResult) bool {
 	}
 	return false
 }
+
+
+
+

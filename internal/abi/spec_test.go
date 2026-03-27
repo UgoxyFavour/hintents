@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package abi
@@ -142,3 +142,7 @@ func TestDecodeContractSpec_Union(t *testing.T) {
 	require.Len(t, spec.Unions, 1)
 	assert.Equal(t, "Outcome", string(spec.Unions[0].Name))
 }
+
+
+
+

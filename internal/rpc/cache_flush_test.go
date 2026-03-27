@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -16,3 +16,7 @@ func TestFlush_NoOp(t *testing.T) {
 		t.Fatalf("expected nil, got %v", err)
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -190,3 +190,7 @@ func TestBudgetUsageJSONMarshaling(t *testing.T) {
 		t.Errorf("MemoryUsagePercent mismatch after marshal/unmarshal")
 	}
 }
+
+
+
+

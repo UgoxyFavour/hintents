@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -231,3 +231,7 @@ func injectNewCode(entries map[string]string, contractID xdr.Hash, code []byte) 
 
 	return nil
 }
+
+
+
+

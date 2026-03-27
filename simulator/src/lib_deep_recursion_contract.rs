@@ -28,3 +28,5 @@ impl DeepRecursionContract {
         1 + client.recurse(&(depth - 1))
     }
 }
+
+

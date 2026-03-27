@@ -175,3 +175,5 @@ mod tests {
         assert!(extract_debug_logs(&Events(vec![])).is_empty());
     }
 }
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -101,3 +101,7 @@ func (t *ExecutionTrace) StepMatchesFilter(stepIndex int, filter string) bool {
 	}
 	return ClassifyEventType(&t.States[stepIndex]) == filter
 }
+
+
+
+

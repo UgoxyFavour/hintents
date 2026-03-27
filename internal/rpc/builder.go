@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -263,3 +263,7 @@ func (b *clientBuilder) build() (*Client, error) {
 		middlewares:     b.middlewares,
 	}, nil
 }
+
+
+
+

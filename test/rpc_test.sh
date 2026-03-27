@@ -50,3 +50,4 @@ curl -s -X POST "http://$HOST/rpc" \
   }' | jq .
 
 echo -e "\nDone!"
+

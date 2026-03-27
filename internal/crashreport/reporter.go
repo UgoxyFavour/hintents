@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package crashreport provides opt-in anonymous crash reporting for the Erst CLI.
@@ -278,3 +278,7 @@ func (r *Reporter) HandlePanic(ctx context.Context, command string) {
 	// Re-panic so Go's runtime prints the stack and exits non-zero.
 	panic(v)
 }
+
+
+
+

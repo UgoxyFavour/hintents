@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -51,3 +51,7 @@ func TestClient_GetTransaction_Failover_Logic(t *testing.T) {
 	assert.Equal(t, 2, len(fallbackErr.Failures), "Should have recorded 2 failures")
 	assert.Contains(t, err.Error(), "all RPC endpoints failed")
 }
+
+
+
+

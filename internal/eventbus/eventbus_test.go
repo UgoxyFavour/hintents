@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package eventbus
@@ -225,3 +225,7 @@ func TestUnsubscribeDuringEmit(t *testing.T) {
 		t.Errorf("expected handler called exactly once, got %d", callCount)
 	}
 }
+
+
+
+

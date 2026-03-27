@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -302,3 +302,7 @@ func handleState(session *shell.Session, args []string) error {
 		return fmt.Errorf("unknown state subcommand: %s", subcommand)
 	}
 }
+
+
+
+

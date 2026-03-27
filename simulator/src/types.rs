@@ -115,3 +115,5 @@ pub struct StructuredError {
     pub message: String,
     pub details: Option<String>,
 }
+
+

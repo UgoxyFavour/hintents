@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -480,3 +480,7 @@ func TestGetLedgerEntries_PartialFailure(t *testing.T) {
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "failed to fetch")
 }
+
+
+
+

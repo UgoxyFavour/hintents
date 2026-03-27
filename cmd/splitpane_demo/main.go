@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // splitpane_demo renders a sample split-pane view to stdout so you can
@@ -97,3 +97,7 @@ func main() {
 
 	fmt.Println()
 }
+
+
+
+

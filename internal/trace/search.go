@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -209,3 +209,7 @@ func (s *SearchEngine) HighlightMatches(node *TraceNode, field string) []MatchRa
 
 	return s.findInString(text, field)
 }
+
+
+
+

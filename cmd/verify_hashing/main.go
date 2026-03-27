@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package main
@@ -116,3 +116,7 @@ func main() {
 		fmt.Println("  Some tests failed. Please review the output above.")
 	}
 }
+
+
+
+

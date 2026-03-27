@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -70,3 +70,7 @@ func init() {
 	abiCmd.Flags().StringVar(&abiFormat, "format", "text", "Output format: text or json")
 	rootCmd.AddCommand(abiCmd)
 }
+
+
+
+

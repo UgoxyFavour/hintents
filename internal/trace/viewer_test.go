@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -63,3 +63,7 @@ func TestInteractiveViewer_HandleCommand_HelpAlias(t *testing.T) {
 		t.Errorf("help alias '?' did not display help overlay: %s", out)
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package main
@@ -403,3 +403,7 @@ func TestSnapshotFormat(t *testing.T) {
 func contains(s, substr string) bool {
 	return len(s) >= len(substr) && (s == substr || len(s) > 0 && s[0:len(substr)] == substr || contains(s[1:], substr))
 }
+
+
+
+

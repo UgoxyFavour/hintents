@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package gasmodel
@@ -182,3 +182,7 @@ func BenchmarkValidate(b *testing.B) {
 		model.Validate()
 	}
 }
+
+
+
+

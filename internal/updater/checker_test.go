@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package updater
@@ -362,3 +362,7 @@ func TestShowBannerFromCache(t *testing.T) {
 		assert.Empty(t, output)
 	})
 }
+
+
+
+

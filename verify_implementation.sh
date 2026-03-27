@@ -179,3 +179,4 @@ echo "4. Start daemon with 'erst daemon --port 8080 --network testnet'"
 echo "5. Check metrics at 'curl http://localhost:8080/metrics'"
 echo
 echo "For detailed verification, see docs/METRICS_VERIFICATION.md"
+

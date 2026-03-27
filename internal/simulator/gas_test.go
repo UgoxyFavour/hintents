@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -391,3 +391,7 @@ func TestBudgetUsage_ToGasEstimation(t *testing.T) {
 		t.Errorf("fee upper bound should be >= lower bound")
 	}
 }
+
+
+
+

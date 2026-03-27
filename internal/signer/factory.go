@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package signer
@@ -35,3 +35,7 @@ func NewFromEnv() (Signer, error) {
 		return nil, &SignerError{Op: "factory", Msg: "unsupported ERST_SIGNER_TYPE: " + signerType}
 	}
 }
+
+
+
+

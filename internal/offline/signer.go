@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package offline
@@ -109,3 +109,7 @@ func parsePrivateKey(hexKey string) (ed25519.PrivateKey, ed25519.PublicKey, erro
 		)
 	}
 }
+
+
+
+

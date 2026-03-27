@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -236,3 +236,7 @@ func TestMockServer_OfflineTestingWorkflow(t *testing.T) {
 	assert.Equal(t, 1, mockServer.CallCount("/transactions/ratelimit"))
 	assert.Equal(t, 1, mockServer.CallCount("/transactions/server"))
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package integration
@@ -14,3 +14,7 @@ func buildTestContext(t *testing.T, d time.Duration) (context.Context, func()) {
 	ctx, cancel := context.WithTimeout(context.Background(), d)
 	return ctx, cancel
 }
+
+
+
+

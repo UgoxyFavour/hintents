@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -117,3 +117,7 @@ func TestGetHealth_Failover(t *testing.T) {
 		assert.Equal(t, "healthy", resp.Result.Status)
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package signer
@@ -156,3 +156,7 @@ func TestPkcs11ConfigFromEnv_ValidConfig(t *testing.T) {
 		t.Fatalf("unexpected key ID hex: %s", cfg.KeyIDHex)
 	}
 }
+
+
+
+

@@ -24,3 +24,5 @@ pub fn theme_path() -> PathBuf {
     path.push("theme.json");
     path
 }
+
+

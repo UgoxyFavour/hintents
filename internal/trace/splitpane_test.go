@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -204,3 +204,7 @@ func TestExecutionStateToNode_ErrorPromotesType(t *testing.T) {
 	assert.Equal(t, "error", node.Type)
 	assert.Equal(t, "wasm trap", node.Error)
 }
+
+
+
+

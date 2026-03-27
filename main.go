@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package main
@@ -85,3 +85,5 @@ func run(execute func() error, stderr io.Writer) int {
 	}
 	return 0
 }
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build !windows && !plan9 && !js && !wasip1
@@ -39,3 +39,7 @@ func getTermWidthSys() int {
 func watchResize(ch chan<- os.Signal) {
 	signal.Notify(ch, syscall.SIGWINCH)
 }
+
+
+
+

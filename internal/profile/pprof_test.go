@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package profile
@@ -94,3 +94,7 @@ func TestTraceToPprof_GasTypes(t *testing.T) {
 	assert.Equal(t, []int64{200}, p.Sample[1].Value)
 	assert.Equal(t, []int64{300}, p.Sample[2].Value)
 }
+
+
+
+

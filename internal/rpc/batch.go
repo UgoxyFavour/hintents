@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -100,3 +100,7 @@ func (c *Client) BatchGetLedgerEntries(ctx context.Context, keys []string) (map[
 
 	return merged, nil
 }
+
+
+
+

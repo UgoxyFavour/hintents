@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package sourcemap
@@ -74,3 +74,7 @@ func DiscoverLocalSymbols(projectRoot string) (map[string]string, error) {
 
 	return found, nil
 }
+
+
+
+

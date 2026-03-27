@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -1595,3 +1595,7 @@ func (c *Client) CheckStaleness(ctx context.Context, network string) error {
 
 	return nil
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package analyzer
@@ -133,3 +133,7 @@ func TestSecurityBoundaryChecker_UnknownContract_Skipped(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Empty(t, violations)
 }
+
+
+
+

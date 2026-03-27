@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package signer
@@ -67,3 +67,7 @@ func (s *InMemorySigner) PublicKey() ([]byte, error) {
 func (s *InMemorySigner) Algorithm() string {
 	return "ed25519"
 }
+
+
+
+

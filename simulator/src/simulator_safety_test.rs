@@ -483,3 +483,5 @@ fn main() {
 //         let msg = decode_error("Error: Wasm Trap: out of bounds memory access");
 //         assert!(msg.contains("VM Trap: Out of Bounds Access"));
 //     }
+
+

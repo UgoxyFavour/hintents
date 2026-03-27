@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package updater
@@ -90,3 +90,7 @@ func TestConfigPrecedenceIntegration(t *testing.T) {
 		assert.True(t, disabled, "ERST_NO_UPDATE_CHECK should disable updates even if config enables them")
 	})
 }
+
+
+
+

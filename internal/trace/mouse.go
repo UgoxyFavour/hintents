@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -183,3 +183,7 @@ func (me *MouseEvent) IsClickEvent() bool {
 func (me *MouseEvent) IsScrollEvent() bool {
 	return me.Button == ScrollUp || me.Button == ScrollDown
 }
+
+
+
+

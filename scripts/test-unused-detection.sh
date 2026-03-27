@@ -64,3 +64,4 @@ fi
 rm -f test_unused.go
 
 echo "Test completed."
+

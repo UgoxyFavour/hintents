@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -97,3 +97,7 @@ func TestCleanByFilter_ByNetworkAndAge(t *testing.T) {
 	require.NoError(t, err)
 	require.True(t, found)
 }
+
+
+
+

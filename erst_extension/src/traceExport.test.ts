@@ -59,3 +59,5 @@ test('renderStandaloneHtml renders metadata and payload json', () => {
     assert.ok(html.includes('tx-html'));
     assert.ok(html.includes('&quot;transactionHash&quot;: &quot;tx-html&quot;'));
 });
+
+

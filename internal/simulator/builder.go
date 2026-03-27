@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -161,3 +161,7 @@ func (b *SimulationRequestBuilder) Reset() *SimulationRequestBuilder {
 	b.errors = make([]string, 0)
 	return b
 }
+
+
+
+

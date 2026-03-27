@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc_test
@@ -115,3 +115,7 @@ func ExampleNewClient() {
 	futurenetClient, _ := rpc.NewClient(rpc.WithNetwork(rpc.Futurenet))
 	fmt.Printf("Futurenet client created: %v\n", futurenetClient.Network)
 }
+
+
+
+

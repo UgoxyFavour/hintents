@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build !windows
@@ -33,3 +33,7 @@ func (sc *SourceCache) releaseLock(lf *os.File) {
 	_ = syscall.Flock(int(lf.Fd()), syscall.LOCK_UN)
 	_ = lf.Close()
 }
+
+
+
+

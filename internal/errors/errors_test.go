@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package errors
@@ -160,3 +160,7 @@ func TestShellExitSentinel(t *testing.T) {
 	assert.True(t, errors.Is(ErrShellExit, ErrShellExit))
 	assert.False(t, errors.Is(ErrShellExit, ErrRPCConnectionFailed))
 }
+
+
+
+

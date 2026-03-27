@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -25,3 +25,7 @@ func ExampleUsage(ctx context.Context, runner RunnerInterface, req *SimulationRe
 	// This enables easy testing with mocks and flexible production usage
 	return runner.Run(ctx, req)
 }
+
+
+
+

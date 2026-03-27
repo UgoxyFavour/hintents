@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -34,3 +34,7 @@ type BudgetUsage struct {
 	CPUUsagePercent    float64 `json:"cpu_usage_percent"`
 	MemoryUsagePercent float64 `json:"memory_usage_percent"`
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -34,3 +34,7 @@ func (noopMethodTimer) Stop(_ error) {}
 func defaultMethodTelemetry() MethodTelemetry {
 	return noopMethodTelemetry{}
 }
+
+
+
+

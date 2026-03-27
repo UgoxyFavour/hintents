@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cache
@@ -191,3 +191,7 @@ func TestDefaultConfig(t *testing.T) {
 	config := DefaultConfig()
 	assert.Equal(t, int64(1024*1024*1024), config.MaxSizeBytes)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package secutil
@@ -30,3 +30,7 @@ func TestMemzeroRetainsLength(t *testing.T) {
 		t.Errorf("slice length changed: got %d, want 4", len(data))
 	}
 }
+
+
+
+

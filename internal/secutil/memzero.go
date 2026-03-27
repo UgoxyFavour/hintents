@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package secutil provides stateless security utility primitives.
@@ -23,3 +23,7 @@ func Memzero(b []byte) {
 	}
 	runtime.KeepAlive(b)
 }
+
+
+
+

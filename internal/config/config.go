@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package config
@@ -430,3 +430,7 @@ func (configDefaultsAssigner) Apply(cfg *Config) {
 // -- Internal Helpers --
 
 // End of config.go
+
+
+
+

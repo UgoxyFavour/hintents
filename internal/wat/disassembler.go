@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package wat provides WebAssembly Text format (WAT) decompilation for
@@ -594,3 +594,7 @@ func decodeSLEB128_64(data []byte) (int64, int) {
 	}
 	return result, i + 1
 }
+
+
+
+

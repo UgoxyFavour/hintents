@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package report
@@ -172,3 +172,7 @@ func truncate(s string, n int) string {
 	}
 	return s[:n]
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -597,3 +597,7 @@ func uint64Ptr(i uint64) *xdr.Uint64 {
 	v := xdr.Uint64(i)
 	return &v
 }
+
+
+
+

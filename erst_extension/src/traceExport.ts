@@ -278,3 +278,5 @@ function escapeHtml(input: string): string {
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#39;');
 }
+
+

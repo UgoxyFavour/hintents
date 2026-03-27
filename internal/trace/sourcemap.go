@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -87,3 +87,7 @@ func parseAndMergeDwarf(wasmPath string) error {
 	// Stub for the actual DWARF extraction logic using debug/dwarf or passing to the Rust IPC.
 	return nil
 }
+
+
+
+

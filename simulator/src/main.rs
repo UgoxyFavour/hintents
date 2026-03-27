@@ -1,7 +1,7 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
-#![allow(warnings, clippy::all, clippy::pedantic, clippy::nursery)]
+#![allow(clippy::all, clippy::pedantic, clippy::nursery)]
 
 mod config;
 mod debug_host_fn;
@@ -1390,3 +1390,5 @@ mod tests {
         assert!(report.contains("FNH:2"));
     }
 }
+
+

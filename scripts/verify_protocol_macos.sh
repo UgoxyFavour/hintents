@@ -36,3 +36,4 @@ if [[ -n "$cli_path" ]]; then
 fi
 
 echo "[OK] macOS protocol registration verification succeeded"
+

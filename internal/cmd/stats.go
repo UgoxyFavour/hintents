@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -175,3 +175,7 @@ func init() {
 	statsCmd.Flags().StringVar(&statsSessionFlag, "session", "", "Load a saved session by ID")
 	rootCmd.AddCommand(statsCmd)
 }
+
+
+
+

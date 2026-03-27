@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package report
@@ -109,3 +109,7 @@ startxref
 func randomID() string {
 	return fmt.Sprintf("%d", time.Now().UnixNano())
 }
+
+
+
+

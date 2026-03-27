@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package report
@@ -237,3 +237,7 @@ func TestLongFilenameHandling(t *testing.T) {
 		t.Errorf("filename too long: %d chars, expected <= 75", len(filename))
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -342,3 +342,7 @@ func init() {
 	statusCmd.Flags().BoolVar(&statusFixFlag, "fix", false, "Automatically repair broken protocol registration without prompting")
 	rootCmd.AddCommand(statusCmd)
 }
+
+
+
+

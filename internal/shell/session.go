@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package shell
@@ -199,3 +199,7 @@ func (s *Session) ResetState() {
 	s.timestamp = s.initialState.Timestamp
 	s.invocationCount = 0
 }
+
+
+
+

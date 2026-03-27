@@ -76,3 +76,5 @@ pub struct Result {
     /// Fee charged in stroops
     fee_charged: String,
 }
+
+

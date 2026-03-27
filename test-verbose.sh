@@ -26,3 +26,4 @@ echo ""
 echo "=== SIDE BY SIDE COMPARISON ==="
 echo "Standard output (left) vs Verbose output (right)"
 diff -y <(node dist/index.js debug $TX_HASH --rpc $RPC_URL 2>&1) <(node dist/index.js debug $TX_HASH --rpc $RPC_URL --verbose 2>&1) || true
+

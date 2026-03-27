@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package dwarf
@@ -334,3 +334,7 @@ func TestInlinedSubroutineInfo_ZeroValues(t *testing.T) {
 		t.Errorf("expected zero CallSite.Line, got %d", info.CallSite.Line)
 	}
 }
+
+
+
+

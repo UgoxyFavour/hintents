@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package daemon
@@ -249,3 +249,7 @@ func (s *Server) Start(ctx context.Context, port string) error {
 	logger.Logger.Info("Shutting down JSON-RPC server")
 	return srv.Shutdown(context.Background())
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package deeplink
@@ -199,3 +199,7 @@ func buildStubBinary(t *testing.T, src string) string {
 
 	return binPath
 }
+
+
+
+

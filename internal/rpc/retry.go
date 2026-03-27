@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -326,3 +326,7 @@ func (rt *RetryTransport) waitWithContext(ctx context.Context, duration time.Dur
 		return ctx.Err()
 	}
 }
+
+
+
+

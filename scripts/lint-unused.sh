@@ -48,3 +48,4 @@ else
 fi
 
 echo "Linting completed successfully!"
+

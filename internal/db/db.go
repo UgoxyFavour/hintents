@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package db
@@ -184,3 +184,7 @@ func (s *Store) SearchSessions(params SearchParams) ([]Session, error) {
 
 	return results, nil
 }
+
+
+
+

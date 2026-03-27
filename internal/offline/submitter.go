@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package offline
@@ -104,3 +104,7 @@ func SorobanURLForNetwork(network string) (string, error) {
 		return "", errors.WrapInvalidNetwork(fmt.Sprintf("%s (expected testnet, mainnet, or futurenet)", network))
 	}
 }
+
+
+
+

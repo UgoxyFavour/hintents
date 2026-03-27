@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -23,3 +23,7 @@ func TestProfilingSchema(t *testing.T) {
 	assert.Equal(t, "success", resp.Status)
 	assert.NotEmpty(t, resp.Flamegraph)
 }
+
+
+
+

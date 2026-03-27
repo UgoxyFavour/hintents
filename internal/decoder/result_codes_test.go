@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -232,3 +232,7 @@ func TestFormatTransactionResult(t *testing.T) {
 		t.Errorf("Expected 'tx_success' in output, got: %s", output)
 	}
 }
+
+
+
+

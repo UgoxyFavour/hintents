@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -59,3 +59,7 @@ func FuzzyMatch(pattern, text string, caseSensitive bool) (score int, positions 
 
 	return score, positions
 }
+
+
+
+

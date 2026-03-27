@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package shutdown
@@ -51,3 +51,7 @@ func TestCoordinatorRun_LIFOAndOnce(t *testing.T) {
 		t.Fatalf("expected no hooks on second run, got %d", len(order))
 	}
 }
+
+
+
+

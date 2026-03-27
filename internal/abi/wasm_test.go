@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package abi
@@ -162,3 +162,7 @@ func TestExtractCustomSection_TruncatedSection(t *testing.T) {
 	require.Error(t, err)
 	assert.True(t, errors.Is(err, errors.ErrWasmInvalid))
 }
+
+
+
+

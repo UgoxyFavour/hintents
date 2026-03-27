@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build !windows
@@ -53,3 +53,7 @@ func TestRunnerRun_ContextCancelTerminatesProcess(t *testing.T) {
 		t.Fatalf("unexpected close error: %v", err)
 	}
 }
+
+
+
+

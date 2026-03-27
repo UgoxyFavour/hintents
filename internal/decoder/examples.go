@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -63,3 +63,7 @@ func Example() {
 	// Error: Insufficient Funds (create_account_underfunded)
 	// Explanation: Source account doesn't have enough XLM to create the account and maintain minimum balance
 }
+
+
+
+

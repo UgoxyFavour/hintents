@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -176,3 +176,7 @@ func TestParseSimulationResponse_DiagnosticEvents(t *testing.T) {
 	assert.Equal(t, "wasm_instruction", instrNode.Type)
 	assert.Contains(t, instrNode.EventData, "i32.add")
 }
+
+
+
+

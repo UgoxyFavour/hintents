@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package httpclient
@@ -27,3 +27,7 @@ var Client = &http.Client{
 		ExpectContinueTimeout: 1 * time.Second,
 	},
 }
+
+
+
+

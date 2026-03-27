@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -249,3 +249,7 @@ func TestCanonicalJSON_EmptyValues(t *testing.T) {
 	expected := `{"empty_array":[],"empty_object":{},"empty_string":"","null_value":null,"zero_number":0}`
 	assert.Equal(t, expected, string(result))
 }
+
+
+
+

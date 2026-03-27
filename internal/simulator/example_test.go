@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator_test
@@ -100,3 +100,7 @@ func ExampleSimulationRequestBuilder_reuse() {
 	// First request envelope: envelope1
 	// Second request envelope: envelope2
 }
+
+
+
+

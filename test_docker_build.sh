@@ -144,3 +144,4 @@ echo "Next steps:"
 echo "  - Push to registry: docker push erst:multiarch"
 echo "  - Test on different platform: docker run --platform linux/arm64 erst:test --version"
 echo "  - Run CI workflow: git push origin <branch>"
+

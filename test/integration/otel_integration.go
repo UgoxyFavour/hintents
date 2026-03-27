@@ -45,3 +45,5 @@ func main() {
 	fmt.Println("Integration test completed successfully")
 	fmt.Println("Check Jaeger UI at http://localhost:16686 for traces")
 }
+
+

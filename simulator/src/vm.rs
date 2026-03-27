@@ -40,3 +40,5 @@ fn is_float_op(op: &Operator) -> bool {
     let name = format!("{:?}", op);
     name.contains("F32") || name.contains("F64")
 }
+
+

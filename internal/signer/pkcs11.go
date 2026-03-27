@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package signer
@@ -285,3 +285,7 @@ func (s *Pkcs11Signer) buildKeyTemplate() ([]pkcs11Attribute, error) {
 
 	return attrs, nil
 }
+
+
+
+

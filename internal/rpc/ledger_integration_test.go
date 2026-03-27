@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -167,3 +167,7 @@ func TestGetLedgerHeader_Integration_RecentLedger(t *testing.T) {
 
 	t.Logf("Recent ledger fetched: %d (closed at %s)", header.Sequence, header.CloseTime)
 }
+
+
+
+

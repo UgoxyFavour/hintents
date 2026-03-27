@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build !windows
@@ -52,3 +52,7 @@ func processExited(process *os.Process) bool {
 	err := process.Signal(syscall.Signal(0))
 	return errors.Is(err, syscall.ESRCH)
 }
+
+
+
+

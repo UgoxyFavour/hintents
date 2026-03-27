@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package shell
@@ -255,3 +255,7 @@ func TestLoadStateInvalidJSON(t *testing.T) {
 		t.Error("Expected error when loading invalid JSON")
 	}
 }
+
+
+
+

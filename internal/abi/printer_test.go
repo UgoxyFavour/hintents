@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package abi
@@ -235,3 +235,7 @@ func TestFormatJSON_ValidOutput(t *testing.T) {
 	require.True(t, ok)
 	require.Len(t, errEnums, 1)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -88,3 +88,7 @@ func VerifyLedgerEntries(requestedKeys []string, returnedEntries map[string]stri
 	logger.Logger.Info("All ledger entries verified successfully", "count", len(requestedKeys))
 	return nil
 }
+
+
+
+

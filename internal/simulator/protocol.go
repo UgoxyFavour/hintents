@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -152,3 +152,7 @@ func MergeFeatures(version uint32, custom map[string]interface{}) map[string]int
 	}
 	return result
 }
+
+
+
+

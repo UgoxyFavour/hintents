@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package config
@@ -146,3 +146,7 @@ func TestConfigFilePermissions(t *testing.T) {
 		t.Errorf("Expected file permissions %o, got %o", expected, mode)
 	}
 }
+
+
+
+

@@ -29,3 +29,4 @@ else
   echo "Not yet – Apply the label to more issues (see docs/community/LABELS_AUDIT.md)."
   exit 1
 fi
+

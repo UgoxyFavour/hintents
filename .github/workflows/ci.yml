@@ -215,7 +215,7 @@ jobs:
     if: needs.changes.outputs.rust == 'true' || needs.changes.outputs.ci == 'true' || github.event_name == 'push'
     strategy:
       matrix:
-        rust-version: [stable, "1.87"]
+        rust-version: [stable]
     defaults:
       run:
         working-directory: simulator

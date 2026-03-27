@@ -32,3 +32,5 @@ pub fn apply(color: &str, text: &str) -> String {
         _ => text.normal().to_string(), // safety fallback
     }
 }
+
+

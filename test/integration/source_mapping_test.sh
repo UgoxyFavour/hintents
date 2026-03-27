@@ -34,3 +34,4 @@ RESULT=$(echo "invalid json" | ./simulator/target/release/erst-sim)
 echo "Result: $RESULT"
 
 echo "Integration tests completed successfully!"
+

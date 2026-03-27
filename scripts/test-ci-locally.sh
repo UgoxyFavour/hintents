@@ -2,16 +2,6 @@
 # Copyright (c) Hintents Authors.
 # SPDX-License-Identifier: Apache-2.0
 
-
-# Copyright 2026 Erst Users
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright (c) Hintents Authors.
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright (c) 2026 dotandev
-# SPDX-License-Identifier: MIT OR Apache-2.0
-
 # Test CI checks locally before pushing
 
 
@@ -71,3 +61,4 @@ cd ..
 
 echo ""
 echo "[OK] All CI checks passed! Safe to push."
+

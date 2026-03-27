@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package plugin
@@ -104,3 +104,7 @@ func validatePlugin(p DecoderPlugin) error {
 
 	return nil
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package abi
@@ -87,3 +87,7 @@ func decodeLEB128(data []byte, offset int) (uint32, int, error) {
 	}
 	return 0, 0, fmt.Errorf("LEB128 integer too large")
 }
+
+
+
+

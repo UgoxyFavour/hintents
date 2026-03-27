@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package demangle_test
@@ -157,3 +157,7 @@ func TestBuildSymbolTable_Nil(t *testing.T) {
 		t.Errorf("got %d entries, want 0", len(table))
 	}
 }
+
+
+
+

@@ -32,3 +32,5 @@ pub fn render_trace() {
         apply(&theme.error, "Connection failed")
     );
 }
+
+

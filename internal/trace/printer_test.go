@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace_test
@@ -119,3 +119,7 @@ func TestPrintOptions_Width(t *testing.T) {
 		t.Error("expected non-empty output for narrow terminal")
 	}
 }
+
+
+
+

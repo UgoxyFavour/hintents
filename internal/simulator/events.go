@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -18,3 +18,7 @@ type CategorizedEvent struct {
 	Topics     []string `json:"topics"`
 	Data       string   `json:"data"`
 }
+
+
+
+

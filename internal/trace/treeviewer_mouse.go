@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -285,3 +285,7 @@ func (tv *TreeViewerWithMouse) enableRawMode() error {
 	_, _ = fmt.Print("\x1b[?25l") //nolint:errcheck
 	return nil
 }
+
+
+
+

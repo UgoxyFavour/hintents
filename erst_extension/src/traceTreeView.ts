@@ -196,3 +196,5 @@ function isStepMatch(step: TraceStep, searchQuery: string): boolean {
     const haystack = JSON.stringify(step).toLowerCase();
     return haystack.includes(query);
 }
+
+

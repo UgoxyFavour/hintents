@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -44,3 +44,7 @@ type AuthTraceOptions struct {
 	CaptureSigDetails    bool `json:"capture_sig_details"`
 	MaxEventDepth        int  `json:"max_event_depth,omitempty"`
 }
+
+
+
+

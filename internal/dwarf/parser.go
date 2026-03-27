@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package dwarf provides DWARF debug information parsing for Soroban contract debugging.
@@ -807,3 +807,7 @@ func (p *Parser) HasDebugInfo() bool {
 func (p *Parser) BinaryType() string {
 	return p.binaryType
 }
+
+
+
+

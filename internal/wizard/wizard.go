@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package wizard
@@ -126,3 +126,7 @@ func (w *Wizard) readUserChoice(max int) (int, error) {
 	}
 	return choice, nil
 }
+
+
+
+

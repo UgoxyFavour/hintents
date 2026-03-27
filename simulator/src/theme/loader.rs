@@ -54,3 +54,5 @@ pub fn load_theme() -> Theme {
         highlight: config.highlight.unwrap_or(default.highlight),
     }
 }
+
+

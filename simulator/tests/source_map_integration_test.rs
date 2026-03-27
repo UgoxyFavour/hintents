@@ -350,3 +350,5 @@ fn source_map_multi_contract_stack_frames_use_module_specific_mapper() {
     assert_eq!(loc.file, "src/token.rs");
     assert_eq!(loc.line, 77);
 }
+
+

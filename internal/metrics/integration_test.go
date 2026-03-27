@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build integration
@@ -201,3 +201,7 @@ func TestMetricsMultipleNodes(t *testing.T) {
 	assert.Contains(t, metricsOutput, `remote_node_response_total{network="testnet",node_address="https://soroban-testnet.stellar.org",status="error"} 1`)
 	assert.Contains(t, metricsOutput, `remote_node_response_total{network="mainnet",node_address="https://soroban-mainnet.stellar.org",status="success"} 1`)
 }
+
+
+
+

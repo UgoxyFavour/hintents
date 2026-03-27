@@ -1,7 +1,7 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
-#![allow(clippy::pedantic, clippy::nursery, dead_code)]
+#![allow(clippy::pedantic, clippy::nursery)]
 
 pub mod gas_optimizer;
 pub mod git_detector;
@@ -11,3 +11,5 @@ pub mod source_mapper;
 pub mod stack_trace;
 pub mod types;
 pub mod wasm_types;
+
+

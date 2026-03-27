@@ -28,3 +28,4 @@ go test -v ./internal/cmd -run TestGenerate_DeterministicHash
 
 echo ""
 echo "All tests passed! Canonical JSON serialization is working correctly."
+

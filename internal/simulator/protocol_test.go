@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -188,3 +188,7 @@ func TestKeccakTinyInputEstimateIsLower(t *testing.T) {
 		t.Fatalf("expected updated tiny-input estimate to be lower: updated=%d old=%d", updatedTinyEstimate, oldTinyEstimate)
 	}
 }
+
+
+
+

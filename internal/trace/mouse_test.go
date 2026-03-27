@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -193,3 +193,7 @@ func TestTreeRenderer_ExpandCollapse(t *testing.T) {
 
 	assert.Equal(t, 3, len(renderer.GetAllNodes()))
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package gasmodel
@@ -33,3 +33,7 @@ type ResourceLimits struct {
 	MaxMemory        uint64 `json:"max_memory,omitempty"`
 	MaxLedgerEntries uint64 `json:"max_ledger_entries,omitempty"`
 }
+
+
+
+

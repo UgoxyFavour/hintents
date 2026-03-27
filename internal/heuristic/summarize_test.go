@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package heuristic
@@ -236,3 +236,7 @@ func TestSummarize_ShortHashPassthrough(t *testing.T) {
 		t.Fatalf("expected full short hash in output, got: %s", got)
 	}
 }
+
+
+
+

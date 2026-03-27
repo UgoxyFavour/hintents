@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // verification_test.go validates the ledger entry verification logic used to
@@ -296,3 +296,7 @@ func BenchmarkVerifyLedgerEntries(b *testing.B) {
 		})
 	}
 }
+
+
+
+

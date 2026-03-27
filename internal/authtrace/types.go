@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package authtrace
@@ -94,3 +94,7 @@ type AuthTraceConfig struct {
 	CaptureSigDetails    bool
 	MaxEventDepth        int
 }
+
+
+
+

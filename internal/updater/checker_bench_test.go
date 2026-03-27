@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package updater
@@ -45,3 +45,7 @@ func BenchmarkNewChecker(b *testing.B) {
 		_ = NewChecker("v1.0.0")
 	}
 }
+
+
+
+

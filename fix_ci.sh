@@ -114,3 +114,4 @@ echo "   git commit -m 'fix(deps): update go.sum for prometheus dependency'"
 echo "3. Push to trigger CI: git push"
 echo
 echo "The CI should now pass! ✨"
+

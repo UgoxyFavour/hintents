@@ -69,3 +69,4 @@ echo "  - 6 vulnerability checks implemented"
 echo "  - Clear distinction between VERIFIED_RISK and HEURISTIC_WARNING"
 echo
 echo "Ready for PR submission!"
+

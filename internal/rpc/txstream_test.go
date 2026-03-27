@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -614,3 +614,7 @@ func TestWsGenKey_AreUnique(t *testing.T) {
 
 // Verify that net.Conn is assignable to io.Writer for wsConn.raw usage.
 var _ io.Writer = (net.Conn)(nil)
+
+
+
+

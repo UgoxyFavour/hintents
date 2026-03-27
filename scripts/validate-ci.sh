@@ -2,10 +2,6 @@
 # Copyright (c) Hintents Authors.
 # SPDX-License-Identifier: Apache-2.0
 
-
-# Copyright 2026 Erst Users
-# SPDX-License-Identifier: Apache-2.0
-
 # Validate CI/CD configuration
 set -euo pipefail
 
@@ -52,3 +48,4 @@ else
 fi
 
 echo " CI/CD configuration validation passed"
+

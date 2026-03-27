@@ -43,3 +43,4 @@ else
     echo "[FAIL] Found $MISSING_HEADERS file(s) missing license headers"
     exit 1
 fi
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package watch
@@ -78,3 +78,7 @@ func (s *Spinner) StopWithError(message string) {
 	s.Stop()
 	fmt.Printf("\r[ERROR] %s\n", message)
 }
+
+
+
+

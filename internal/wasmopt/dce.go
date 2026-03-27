@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package wasmopt
@@ -1146,3 +1146,7 @@ func encodeU32(v uint32) []byte {
 	}
 	return out[:i]
 }
+
+
+
+

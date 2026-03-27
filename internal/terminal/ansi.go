@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package terminal
@@ -194,3 +194,7 @@ func (r *ANSIRenderer) Symbol(name string) string { //nolint:gocyclo
 		return name
 	}
 }
+
+
+
+

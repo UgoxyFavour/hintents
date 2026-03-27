@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package terminal
@@ -88,3 +88,7 @@ func (m *MockRenderer) LastOutput() string {
 func (m *MockRenderer) AllOutput() string {
 	return strings.Join(m.Output, "")
 }
+
+
+
+

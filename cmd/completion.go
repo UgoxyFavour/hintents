@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -65,3 +65,7 @@ For detailed instructions on setting up completions for your shell, consult your
 func init() {
 	rootCmd.AddCommand(completionCmd)
 }
+
+
+
+

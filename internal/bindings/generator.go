@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package bindings
@@ -801,3 +801,7 @@ func toPascalCase(s string) string {
 
 	return strings.Join(words, "")
 }
+
+
+
+

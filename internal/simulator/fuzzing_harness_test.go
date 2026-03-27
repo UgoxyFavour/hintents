@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -314,3 +314,7 @@ func TestFuzzingHarness_Summary(t *testing.T) {
 		assert.Contains(t, summary, "Summary") // Summary header
 	})
 }
+
+
+
+

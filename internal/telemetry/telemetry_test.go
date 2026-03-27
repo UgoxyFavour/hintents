@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package telemetry
@@ -77,3 +77,7 @@ func TestInit_UnreachableCollector(t *testing.T) {
 	span.End()
 	// If we get here without blocking or panic, telemetry fails silently as intended
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -99,3 +99,7 @@ func TestSimulatePartial_AllKeysMissingHaltsAtFirst(t *testing.T) {
 	assert.False(t, result.Completed)
 	assert.Equal(t, 0, result.OpsApplied)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package config
@@ -220,3 +220,7 @@ func TestValidate_Delegates(t *testing.T) {
 		t.Error("expected Validate to reject empty rpc_url")
 	}
 }
+
+
+
+

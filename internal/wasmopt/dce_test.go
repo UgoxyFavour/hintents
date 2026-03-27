@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package wasmopt
@@ -163,3 +163,7 @@ func firstCallIndexInFunction(module []byte, fn int) (uint32, error) {
 	idx, _, err := readU32(body, pos)
 	return idx, err
 }
+
+
+
+

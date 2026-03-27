@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package gasmodel
@@ -61,3 +61,7 @@ func (g *GasModel) AllCosts() []GasCost {
 	all = append(all, g.LedgerCosts...)
 	return all
 }
+
+
+
+

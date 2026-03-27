@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package daemon
@@ -210,3 +210,7 @@ func TestServer_GetContractCode_Auth(t *testing.T) {
 		t.Error("Expected auth error without token")
 	}
 }
+
+
+
+

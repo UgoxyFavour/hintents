@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -57,3 +57,7 @@ func TestDisplaySourceLocation(t *testing.T) {
 	assert.Contains(t, output, "3 |     let y = x / 0; // Error here")
 	assert.Contains(t, output, "^^^^")
 }
+
+
+
+

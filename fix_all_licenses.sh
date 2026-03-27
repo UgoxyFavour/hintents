@@ -112,3 +112,4 @@ if [[ $MISSING -gt 0 ]]; then
 else
   echo "OK: All audited files have proper headers."
 fi
+

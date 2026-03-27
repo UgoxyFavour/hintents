@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -494,3 +494,7 @@ func IsMemoryTrap(trap *TrapInfo) bool {
 	}
 	return trap.Type == TrapMemoryOutOfBounds || trap.Type == TrapIndexOutOfBounds
 }
+
+
+
+

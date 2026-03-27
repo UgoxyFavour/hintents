@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package audit
@@ -45,3 +45,7 @@ func ParseSignedAuditDump(data []byte) (*SignedAuditDump, error) {
 	}
 	return &d, nil
 }
+
+
+
+

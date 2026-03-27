@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package decenstorage provides clients for pushing signed audit-trail payloads
@@ -278,3 +278,7 @@ func (p *Publisher) PublishArweave(ctx context.Context, payload []byte) (Result,
 		URL:     strings.TrimRight(p.cfg.ArweaveGateway, "/") + "/" + txid,
 	}, nil
 }
+
+
+
+

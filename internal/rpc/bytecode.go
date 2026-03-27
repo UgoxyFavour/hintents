@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -278,3 +278,7 @@ func FetchBytecodeForTraceContractCalls(ctx context.Context, c *Client, contract
 	}
 	return existingMap, nil
 }
+
+
+
+

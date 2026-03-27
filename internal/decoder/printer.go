@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -58,3 +58,7 @@ func maskAccount(addr string) string {
 	}
 	return addr[:4] + "…" + addr[len(addr)-4:]
 }
+
+
+
+

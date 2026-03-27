@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package visualizer
@@ -124,3 +124,7 @@ func TestContractBoundaryWithColor(t *testing.T) {
 		t.Errorf("ContractBoundary should contain ANSI codes when colors enabled, got: %q", out)
 	}
 }
+
+
+
+

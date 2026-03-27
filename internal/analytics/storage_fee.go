@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package analytics
@@ -13,3 +13,7 @@ func CalculateStorageFee(deltaBytes int64, model StorageFeeModel) int64 {
 	}
 	return deltaBytes * int64(model.FeePerByte)
 }
+
+
+
+

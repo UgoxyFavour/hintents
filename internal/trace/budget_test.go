@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -79,3 +79,7 @@ func TestTraceNode_BudgetMetrics_NestedNodes(t *testing.T) {
 	assert.NotNil(t, flattened[2].CPUDelta)
 	assert.Equal(t, uint64(200000), *flattened[2].CPUDelta)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -125,3 +125,7 @@ func TestResolveNetwork_NotFoundErrorMentionsAllNetworks(t *testing.T) {
 	assert.Contains(t, err.Error(), string(Testnet))
 	assert.Contains(t, err.Error(), string(Futurenet))
 }
+
+
+
+

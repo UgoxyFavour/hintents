@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -11,3 +11,7 @@ func TestCIFailureDemo(t *testing.T) {
 	// t.Fail() // Uncomment this line to intentionally break CI
 	t.Log("CI test passing")
 }
+
+
+
+

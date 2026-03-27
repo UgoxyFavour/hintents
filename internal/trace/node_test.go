@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -215,3 +215,7 @@ func TestTraceNode_IsCrossContractCall(t *testing.T) {
 	assert.True(t, diffContract.IsCrossContractCall(), "different contract from parent")
 	assert.False(t, noContract.IsCrossContractCall(), "no contract ID")
 }
+
+
+
+

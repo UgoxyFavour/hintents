@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package main
@@ -69,3 +69,7 @@ func main() {
 	// This exists to satisfy Go's requirement for a main package to have a main function
 	// but this plugin is intended to be built as a .so file.
 }
+
+
+
+

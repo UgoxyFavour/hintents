@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package dce
@@ -564,3 +564,7 @@ func TestRoundTrip_WithImports(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, wasm, out, "round-trip with imports should be identical")
 }
+
+
+
+

@@ -158,3 +158,5 @@ func loadTestTrace(b *testing.B, filename string) []byte {
 	}
 	return data
 }
+
+

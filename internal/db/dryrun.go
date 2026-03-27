@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package db
@@ -71,3 +71,7 @@ func DryRunExec(logger *slog.Logger, _ *sql.DB, query string, args ...interface{
 
 	return result
 }
+
+
+
+

@@ -35,3 +35,4 @@ for num in "${ISSUES[@]}"; do
   fi
 done
 echo "Done."
+

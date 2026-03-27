@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package plugin
@@ -310,3 +310,7 @@ func TestPluginLifecycle(t *testing.T) {
 		t.Errorf("plugins not cleared")
 	}
 }
+
+
+
+

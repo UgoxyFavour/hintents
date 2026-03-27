@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -94,3 +94,7 @@ func init() {
 	snapshotMemoryCmd.Flags().IntVar(&snapshotMemoryLengthFlag, "length", 256, "Number of bytes to print")
 	rootCmd.AddCommand(snapshotMemoryCmd)
 }
+
+
+
+

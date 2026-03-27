@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package wat
@@ -569,3 +569,7 @@ func TestDecodeBlockType_Empty(t *testing.T) {
 		t.Errorf("empty block: got %q, %d", bt, n)
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package telemetry
@@ -94,3 +94,7 @@ func Init(ctx context.Context, config Config) (func(), error) {
 func GetTracer() oteltrace.Tracer {
 	return otel.Tracer("erst")
 }
+
+
+
+

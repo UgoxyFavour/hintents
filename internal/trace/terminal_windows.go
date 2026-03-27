@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build windows || plan9 || js || wasip1
@@ -13,3 +13,7 @@ func getTermWidthSys() int { return 0 }
 
 // watchResize is a no-op on Windows and plan9 (no SIGWINCH equivalent).
 func watchResize(_ chan<- os.Signal) {}
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -178,3 +178,7 @@ func TestSimulateTransaction_ReportsMethodTelemetryOnSuccess(t *testing.T) {
 		t.Fatalf("expected nil error on successful stop, got %v", rec.stop[0].err)
 	}
 }
+
+
+
+

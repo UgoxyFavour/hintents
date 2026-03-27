@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -50,3 +50,7 @@ func Verify(log *AuditLog) error {
 
 	return nil
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -44,3 +44,7 @@ func TestCalibrationSerialization(t *testing.T) {
 		t.Errorf("expected %d, got %d", keccak256PerByteCalibration, req2.ResourceCalibration.Keccak256PerByte)
 	}
 }
+
+
+
+

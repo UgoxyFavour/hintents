@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package terminal
@@ -17,3 +17,7 @@ type Renderer interface {
 	Scanln(a ...any) (int, error)
 	IsTTY() bool
 }
+
+
+
+

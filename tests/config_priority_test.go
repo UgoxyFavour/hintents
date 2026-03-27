@@ -82,3 +82,5 @@ func TestConfigPriority(t *testing.T) {
 		assert.Equal(t, "FLAG_TOKEN", token, "Flag should override env and config")
 	})
 }
+
+

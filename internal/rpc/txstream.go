@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package rpc provides access to Stellar Horizon and Soroban RPC endpoints.
@@ -680,3 +680,7 @@ type jsonrpcResponse struct {
 		Message string `json:"message"`
 	} `json:"error,omitempty"`
 }
+
+
+
+

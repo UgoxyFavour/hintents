@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package plugin
@@ -65,3 +65,7 @@ func (m *Manager) GetPlugin(name string) (DecoderPlugin, bool) {
 	defer m.registry.mu.RUnlock()
 	return m.registry.loader.Get(name)
 }
+
+
+
+

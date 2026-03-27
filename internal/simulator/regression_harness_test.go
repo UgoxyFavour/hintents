@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -192,3 +192,7 @@ func TestRegressionTestSuite_ConcurrentAddition(t *testing.T) {
 
 	assert.Equal(t, 100, len(suite.Results))
 }
+
+
+
+

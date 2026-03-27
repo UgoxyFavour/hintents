@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package authtrace
@@ -208,3 +208,7 @@ func (t *Tracker) Clear() {
 	t.failures = make([]AuthFailure, 0)
 	t.accountContexts = make(map[string]*AccountAuthContext)
 }
+
+
+
+

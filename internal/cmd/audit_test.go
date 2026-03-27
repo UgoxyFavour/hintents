@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package cmd
@@ -299,3 +299,7 @@ func TestGenerateWithSigner_WithAttestation(t *testing.T) {
 	require.NoError(t, err)
 	assert.True(t, valid)
 }
+
+
+
+

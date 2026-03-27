@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package deeplink provides utilities for verifying that the erst:// custom
@@ -124,3 +124,7 @@ func triggerMockLink(selfPath string) bool {
 		return false
 	}
 }
+
+
+
+

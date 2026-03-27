@@ -45,3 +45,4 @@ if echo "$OUTPUT2" | grep -q $'\033'; then
   exit 1
 fi
 echo "PASS: NO_COLOR honored"
+

@@ -24,3 +24,4 @@ impl TrapContract {
         unsafe { core::arch::wasm32::unreachable() }
     }
 }
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -213,3 +213,7 @@ func BenchmarkFormatTable(b *testing.B) {
 		_, _ = formatter.Format(data)
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package offline
@@ -248,3 +248,7 @@ func TestChecksumOf(t *testing.T) {
 	assert.NotEqual(t, c1, c3)
 	assert.Len(t, c1, 64) // SHA-256 hex = 64 chars
 }
+
+
+
+

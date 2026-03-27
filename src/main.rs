@@ -20,3 +20,5 @@ if cli.share {
     let url = uploader.upload(&trace_json, cli.public)?;
     println!("Shared: {}", url);
 }
+
+

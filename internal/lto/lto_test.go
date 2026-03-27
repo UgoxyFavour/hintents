@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package lto
@@ -455,3 +455,7 @@ func containsSubstring(s, substr string) bool {
 	}
 	return false
 }
+
+
+
+

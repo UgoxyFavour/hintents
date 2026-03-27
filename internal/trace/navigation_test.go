@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -460,3 +460,7 @@ func TestExecutionTrace_LazySnapshotMaterializesOnRead(t *testing.T) {
 		t.Errorf("expected HostState[v]=7, got %v", v)
 	}
 }
+
+
+
+

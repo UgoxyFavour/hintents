@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package ipc
@@ -29,3 +29,7 @@ func TestToErstErrorMemoryLimitByMessage(t *testing.T) {
 		t.Fatalf("expected %s, got %s", errors.CodeSimMemoryLimitExceeded, e.Code)
 	}
 }
+
+
+
+

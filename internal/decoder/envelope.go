@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -82,3 +82,7 @@ func DecodeEnvelopeFromInner(inner xdr.FeeBumpTransactionInnerTx) (*DecodedEnvel
 		return nil, fmt.Errorf("unsupported inner tx type")
 	}
 }
+
+
+
+

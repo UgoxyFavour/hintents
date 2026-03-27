@@ -59,3 +59,5 @@ pub fn load_wasm_from_path(path: &str) -> Result<Vec<u8>, WasmLoadError> {
 
     Ok(bytes)
 }
+
+

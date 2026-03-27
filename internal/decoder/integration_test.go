@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package decoder
@@ -276,3 +276,7 @@ func TestIntegration_RealWorldScenario(t *testing.T) {
 
 	t.Logf("Suggestions for junior developer:\n%s", output)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package signer
@@ -37,3 +37,7 @@ func (e *SignerError) Error() string {
 func (e *SignerError) Unwrap() error {
 	return e.Err
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package snapshot
@@ -139,3 +139,7 @@ func encodeMemory(memory []byte) string {
 	}
 	return base64.StdEncoding.EncodeToString(memory)
 }
+
+
+
+

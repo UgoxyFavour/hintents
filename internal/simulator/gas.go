@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package simulator
@@ -217,3 +217,7 @@ func estimateFeeFromUsage(cpuInsns, memBytes uint64) (int64, error) {
 	}
 	return BaseFeeStroops + cpu + mem, nil
 }
+
+
+
+

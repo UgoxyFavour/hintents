@@ -1,4 +1,4 @@
-﻿// Copyright 2026 Erst Users
+// Copyright 2026 Erst Users
 // SPDX-License-Identifier: Apache-2.0
 
 #[cfg(test)]
@@ -986,3 +986,5 @@ mod contract_execution_tests {
         }
     }
 }
+
+

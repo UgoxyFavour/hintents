@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package security_test
@@ -36,3 +36,7 @@ func Example() {
 	// 1. [VERIFIED_RISK] HIGH - Integer Overflow/Underflow Detected
 	// 2. [VERIFIED_RISK] HIGH - Contract Panic/Trap
 }
+
+
+
+

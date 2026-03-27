@@ -11,3 +11,5 @@ pub struct Cli {
     #[arg(long)]
     pub public: bool,
 }
+
+

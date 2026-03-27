@@ -54,3 +54,4 @@ echo ""
 echo "=== Compilation Test Complete ==="
 echo "All platforms can compile the code successfully."
 echo "Hash consistency is guaranteed by XDR and SHA-256 standards."
+

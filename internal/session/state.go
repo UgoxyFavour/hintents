@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package session
@@ -73,3 +73,7 @@ func (s *SessionStore) Get(key string) (interface{}, bool) {
 	val, ok := s.state[key]
 	return val, ok
 }
+
+
+
+

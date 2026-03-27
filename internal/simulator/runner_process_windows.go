@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 //go:build windows
@@ -21,3 +21,7 @@ func terminateCommand(cmd *exec.Cmd, graceTimeout time.Duration) error {
 	}
 	return cmd.Process.Kill()
 }
+
+
+
+

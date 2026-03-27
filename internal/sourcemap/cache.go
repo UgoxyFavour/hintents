@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package sourcemap
@@ -188,3 +188,7 @@ func (sc *SourceCache) lockPath(entryPath string) string {
 
 // acquireLock and releaseLock are implemented in
 // cache_lock_unix.go and cache_lock_windows.go.
+
+
+
+

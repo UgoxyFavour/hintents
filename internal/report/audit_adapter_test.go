@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package report_test
@@ -186,3 +186,7 @@ func TestRenderAuditDumpHTML_InvalidJSON(t *testing.T) {
 	_, err := report.RenderAuditDumpHTML([]byte("bad"))
 	assert.Error(t, err)
 }
+
+
+
+

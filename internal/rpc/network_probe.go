@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package rpc
@@ -66,3 +66,7 @@ func resolveNetwork(ctx context.Context, hash string, token string, overrideURLs
 	return "", fmt.Errorf("transaction not found on %s",
 		strings.Join([]string{string(Mainnet), string(Testnet), string(Futurenet)}, ", "))
 }
+
+
+
+

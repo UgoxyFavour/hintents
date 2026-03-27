@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package compare implements the "Compare Replay" diffing engine for issue #105.
@@ -309,3 +309,7 @@ func extractCallPathDivergences(diffs []DiagnosticDiff) []CallPathDivergence {
 	}
 	return divergences
 }
+
+
+
+

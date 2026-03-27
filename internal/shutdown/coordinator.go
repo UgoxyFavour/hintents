@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package shutdown
@@ -88,3 +88,7 @@ func perHookContext(ctx context.Context, hooksRemaining int) (context.Context, c
 	}
 	return context.WithTimeout(ctx, perHook)
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package compare
@@ -271,3 +271,7 @@ func TestRender_NilResult_NoError(t *testing.T) {
 		Render(nil)
 	})
 }
+
+
+
+

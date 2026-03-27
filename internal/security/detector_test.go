@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package security
@@ -199,3 +199,7 @@ func TestDetector_MultipleFindings(t *testing.T) {
 		t.Error("Expected at least one heuristic warning")
 	}
 }
+
+
+
+

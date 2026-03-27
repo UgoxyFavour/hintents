@@ -84,3 +84,4 @@ echo "5. Toggle system dark mode and verify colors adapt"
 echo "6. Check browser console for errors (should be none)"
 echo "7. Check network tab for requests (should be none)"
 echo ""
+

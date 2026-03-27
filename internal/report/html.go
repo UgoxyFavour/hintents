@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package report
@@ -258,3 +258,7 @@ const htmlTemplate = `<!DOCTYPE html>
 	</div>
 </body>
 </html>`
+
+
+
+

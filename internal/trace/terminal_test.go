@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package trace
@@ -109,3 +109,7 @@ func TestSeparator_VeryNarrow(t *testing.T) {
 		t.Fatalf("expected minimum 10-char separator, got %d", len(s))
 	}
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// Copyright 2026 Erst Users
+// Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
 
 package tokenflow
@@ -246,3 +246,7 @@ func addrMuxed(pk [32]byte) string {
 	}
 	return s
 }
+
+
+
+
