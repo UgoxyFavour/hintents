@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copyright (c) Hintents Authors.
+# Copyright 2026 Erst Users
 # SPDX-License-Identifier: Apache-2.0
 
 # Validate CI/CD configuration
