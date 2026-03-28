@@ -113,3 +113,17 @@ pub struct StructuredError {
     pub message: String,
     pub details: Option<String>,
 }
+
+/// Captures the ledger state at a specific point in time during simulation.
+///
+/// Serves as the foundation for the rollback mechanism, allowing the simulator
+/// to restore a prior state by replaying from a known-good snapshot.
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct StateSnapshot {
+    /// Base64-encoded ledger entries (key → entry XDR) at the snapshot point.
+    pub ledger_entries: HashMap<String, String>,
+    /// Ledger timestamp (seconds since Unix epoch) at the snapshot point.
+    pub timestamp: u64,
+    /// Index of the WASM instruction at which the snapshot was taken.
+    pub instruction_index: u32,
+}
