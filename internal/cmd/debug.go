@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/dotandev/hintents/internal/config"
+	"github.com/dotandev/hintents/internal/debug"
 	"github.com/dotandev/hintents/internal/decenstorage"
 	"github.com/dotandev/hintents/internal/decoder"
 	"github.com/dotandev/hintents/internal/errors"
@@ -72,6 +73,8 @@ var (
 	mockGasPriceFlag    uint64
 	asyncFlag           bool
 	asyncTimeoutFlag    int
+	loadSnapshotsFlag   string
+	saveSnapshotsFlag   string
 )
 
 // DebugCommand holds dependencies for the debug command
@@ -208,8 +211,9 @@ Local WASM Replay Mode:
 			return errors.WrapValidationError("--hot-reload requires --wasm")
 		}
 
-		// Demo mode or local WASM replay don't need transaction hash
-		if demoMode || wasmPath != "" {
+		// Demo mode, local WASM replay, and offline registry load don't need a
+		// transaction hash or network connectivity.
+		if demoMode || wasmPath != "" || loadSnapshotsFlag != "" {
 			return nil
 		}
 
@@ -270,6 +274,11 @@ Local WASM Replay Mode:
 		// Demo mode: print sample output for testing color detection (no network)
 		if demoMode {
 			return runDemoMode(cmdArgs)
+		}
+
+		// Offline replay from a saved snapshot registry
+		if loadSnapshotsFlag != "" {
+			return runFromRegistry(cmd.Context(), loadSnapshotsFlag)
 		}
 
 		// Local WASM replay mode
@@ -434,6 +443,13 @@ Local WASM Replay Mode:
 
 		var lastSimResp *simulator.SimulationResponse
 
+		// Collected per-timestamp states written to disk when --save-snapshots is set.
+		type snapshotEntry struct {
+			ts      int64
+			entries map[string]string
+		}
+		var collectedEntries []snapshotEntry
+
 		for _, ts := range timestamps {
 			if len(timestamps) > 1 {
 				fmt.Printf("\n--- Simulating at Timestamp: %d ---\n", ts)
@@ -463,6 +479,10 @@ Local WASM Replay Mode:
 					} else {
 						logger.Logger.Info("Extracted ledger entries for simulation", "count", len(ledgerEntries))
 					}
+				}
+
+				if saveSnapshotsFlag != "" {
+					collectedEntries = append(collectedEntries, snapshotEntry{ts: ts, entries: ledgerEntries})
 				}
 
 				fmt.Printf("Running simulation on %s...\n", networkFlag)
@@ -590,6 +610,20 @@ Local WASM Replay Mode:
 
 		if lastSimResp == nil {
 			return errors.WrapSimulationLogicError("no simulation results generated")
+		}
+
+		// Persist snapshot registry to disk when --save-snapshots is set.
+		if saveSnapshotsFlag != "" && len(collectedEntries) > 0 {
+			reg := debug.New(Version, txHash, networkFlag, resp.EnvelopeXdr, resp.ResultMetaXdr)
+			for _, ce := range collectedEntries {
+				reg.Add(ce.ts, snapshot.FromMap(ce.entries))
+			}
+			if err := reg.SaveToFile(saveSnapshotsFlag); err != nil {
+				fmt.Printf("Warning: failed to save snapshot registry: %v\n", err)
+			} else {
+				fmt.Printf("Snapshot registry saved: %s (%d entr%s)\n",
+					saveSnapshotsFlag, len(reg.Entries), pluralIes(len(reg.Entries)))
+			}
 		}
 
 		// Analysis: Error Suggestions (Heuristic-based)
@@ -1310,6 +1344,58 @@ func findDeprecatedHostFunction(input string) (string, bool) {
 	return "", false
 }
 
+// runFromRegistry replays a saved time-travel session from a snapshot registry
+// file without any network connectivity.
+func runFromRegistry(ctx context.Context, path string) error {
+	reg, err := debug.LoadFromFile(path)
+	if err != nil {
+		return fmt.Errorf("failed to load snapshot registry: %w", err)
+	}
+
+	if len(reg.Entries) == 0 {
+		return errors.WrapValidationError("snapshot registry contains no entries")
+	}
+
+	fmt.Printf("Offline replay: %s\n", reg.TxHash)
+	fmt.Printf("Network: %s | Created: %s | Entries: %d\n",
+		reg.Network, reg.CreatedAt.Format(time.RFC3339), len(reg.Entries))
+
+	runner, err := simulator.NewRunnerWithMockTime("", tracingEnabled, mockTimeFlag)
+	if err != nil {
+		return errors.WrapSimulatorNotFound(err.Error())
+	}
+	defer runner.Close()
+
+	for _, entry := range reg.Entries {
+		if len(reg.Entries) > 1 {
+			fmt.Printf("\n--- Simulating at Timestamp: %d ---\n", entry.Timestamp)
+		}
+
+		simReq := &simulator.SimulationRequest{
+			EnvelopeXdr:   reg.EnvelopeXdr,
+			ResultMetaXdr: reg.ResultMetaXdr,
+			LedgerEntries: entry.Snapshot.ToMap(),
+			Timestamp:     entry.Timestamp,
+		}
+		applySimulationFeeMocks(simReq)
+
+		simResp, err := runner.Run(ctx, simReq)
+		if err != nil {
+			return errors.WrapSimulationFailed(err, "")
+		}
+		printSimulationResult(reg.Network, simResp)
+	}
+
+	return nil
+}
+
+func pluralIes(n int) string {
+	if n == 1 {
+		return "y"
+	}
+	return "ies"
+}
+
 func init() {
 	debugCmd.Flags().StringVarP(&networkFlag, "network", "n", "mainnet", "Stellar network (auto-detected when omitted; testnet, mainnet, futurenet)")
 	debugCmd.Flags().StringVar(&rpcURLFlag, "rpc-url", "", "Custom RPC URL")
@@ -1334,6 +1420,8 @@ func init() {
 	debugCmd.Flags().StringVar(&themeFlag, "theme", "", "Color theme override (dark, light, none)")
 	debugCmd.Flags().Int64Var(&mockTimeFlag, "mock-time", 0, "Override ledger timestamp for simulation (Unix seconds)")
 	debugCmd.Flags().Uint32Var(&protocolVersionFlag, "protocol-version", 0, "Override protocol version for simulation")
+	debugCmd.Flags().StringVar(&loadSnapshotsFlag, "load-snapshots", "", "Replay a saved snapshot registry file offline (no network required)")
+	debugCmd.Flags().StringVar(&saveSnapshotsFlag, "save-snapshots", "", "Save the debug session ledger state to a snapshot registry file (e.g. session.erstsnap)")
 
 	rootCmd.AddCommand(debugCmd)
 }
