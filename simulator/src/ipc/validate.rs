@@ -42,7 +42,13 @@ pub fn validate_request(input: &str) -> Result<Value, String> {
 
     let instance: Value = serde_json::from_str(input).map_err(|e| e.to_string())?;
 
-    compiled.validate(&instance).map_err(|e| e.to_string())?;
+    let errors: Vec<String> = compiled
+        .iter_errors(&instance)
+        .map(|e| e.to_string())
+        .collect();
+    if !errors.is_empty() {
+        return Err(errors.join(", "));
+    }
 
     Ok(instance)
 }
