@@ -11,6 +11,8 @@ import (
 	"os/signal"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/atotto/clipboard"
 	"github.com/dotandev/hintents/internal/dwarf"
@@ -26,6 +28,18 @@ type InteractiveViewer struct {
 	hideStdLib  bool
 	trap        *TrapInfo
 	dwarfParser *dwarf.Parser
+	stateMu     sync.RWMutex
+	stateCache  map[int]*ExecutionState
+	fetching    map[int]bool
+	fetchErr    map[int]string
+	fetchCh     chan fetchedState
+	fetchDelay  time.Duration
+}
+
+type fetchedState struct {
+	step  int
+	state *ExecutionState
+	err   error
 }
 
 // NewInteractiveViewer creates a new interactive trace viewer
@@ -35,6 +49,10 @@ func NewInteractiveViewer(trace *ExecutionTrace) *InteractiveViewer {
 		reader:      bufio.NewReader(os.Stdin),
 		eventFilter: "",
 		filterCycle: []string{"", EventTypeTrap, EventTypeContractCall, EventTypeHostFunction, EventTypeAuth},
+		stateCache:  make(map[int]*ExecutionState),
+		fetching:    make(map[int]bool),
+		fetchErr:    make(map[int]string),
+		fetchCh:     make(chan fetchedState, 32),
 	}
 
 	// Detect any traps in the trace
@@ -51,6 +69,10 @@ func NewInteractiveViewerWithWASM(trace *ExecutionTrace, wasmData []byte) *Inter
 		reader:      bufio.NewReader(os.Stdin),
 		eventFilter: "",
 		filterCycle: []string{"", EventTypeTrap, EventTypeContractCall, EventTypeHostFunction, EventTypeAuth},
+		stateCache:  make(map[int]*ExecutionState),
+		fetching:    make(map[int]bool),
+		fetchErr:    make(map[int]string),
+		fetchCh:     make(chan fetchedState, 32),
 	}
 
 	// Initialize DWARF parser if WASM data is provided
@@ -100,6 +122,13 @@ func (v *InteractiveViewer) Start() error {
 				fmt.Print("\n")
 				v.displayCurrentState()
 				fmt.Print("\n> ")
+			case fetched := <-v.fetchCh:
+				v.handleFetchedState(fetched)
+				if fetched.step == v.trace.CurrentStep {
+					fmt.Print("\n")
+					v.displayCurrentState()
+					fmt.Print("\n> ")
+				}
 			case <-done:
 				return
 			}
@@ -345,16 +374,73 @@ func (v *InteractiveViewer) displayCurrentState() {
 		}
 	}
 
-	// Show memory/state summary
-	if len(state.HostState) > 0 {
-		fmt.Printf("Host State: %d entries\n", len(state.HostState))
+	panelState, panelErr, loading := v.resolvePanelState(state.Step)
+	if loading {
+		fmt.Println("[ FETCHING STATE... ]")
+	} else if panelErr != "" {
+		fmt.Printf("[ FETCH FAILED: %s ]\n", panelErr)
+	} else if panelState != nil {
+		if len(panelState.HostState) > 0 {
+			fmt.Printf("Host State: %d entries\n", len(panelState.HostState))
+		}
+		if len(panelState.Memory) > 0 {
+			fmt.Printf("Memory: %d entries\n", len(panelState.Memory))
+		}
 	}
-	if len(state.Memory) > 0 {
-		fmt.Printf("Memory: %d entries\n", len(state.Memory))
-	}
+}
 
-	fmt.Println(separator(termW))
-	fmt.Println(v.statusBarLine(state))
+func (v *InteractiveViewer) resolvePanelState(step int) (*ExecutionState, string, bool) {
+	v.stateMu.RLock()
+	if cached, ok := v.stateCache[step]; ok {
+		errMsg := v.fetchErr[step]
+		v.stateMu.RUnlock()
+		return cached, errMsg, false
+	}
+	if v.fetching[step] {
+		errMsg := v.fetchErr[step]
+		v.stateMu.RUnlock()
+		return nil, errMsg, true
+	}
+	v.stateMu.RUnlock()
+
+	v.stateMu.Lock()
+	if cached, ok := v.stateCache[step]; ok {
+		errMsg := v.fetchErr[step]
+		v.stateMu.Unlock()
+		return cached, errMsg, false
+	}
+	if v.fetching[step] {
+		errMsg := v.fetchErr[step]
+		v.stateMu.Unlock()
+		return nil, errMsg, true
+	}
+	v.fetching[step] = true
+	delete(v.fetchErr, step)
+	v.stateMu.Unlock()
+
+	go v.fetchPanelState(step)
+	return nil, "", true
+}
+
+func (v *InteractiveViewer) fetchPanelState(step int) {
+	if v.fetchDelay > 0 {
+		time.Sleep(v.fetchDelay)
+	}
+	state, err := v.trace.ReconstructStateAt(step)
+	v.fetchCh <- fetchedState{step: step, state: state, err: err}
+}
+
+func (v *InteractiveViewer) handleFetchedState(f fetchedState) {
+	v.stateMu.Lock()
+	defer v.stateMu.Unlock()
+
+	delete(v.fetching, f.step)
+	if f.err != nil {
+		v.fetchErr[f.step] = f.err.Error()
+		return
+	}
+	v.stateCache[f.step] = f.state
+	delete(v.fetchErr, f.step)
 }
 
 func (v *InteractiveViewer) statusBarLine(state *ExecutionState) string {

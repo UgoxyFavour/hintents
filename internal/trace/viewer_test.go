@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 // captureOutput temporarily redirects stdout so that the supplied function's
@@ -66,6 +67,59 @@ func TestInteractiveViewer_HandleCommand_HelpAlias(t *testing.T) {
 
 
 
+func TestInteractiveViewer_DisplayCurrentState_ShowsFetchingPlaceholder(t *testing.T) {
+	trace := NewExecutionTrace("tx", 1)
+	trace.AddState(ExecutionState{Operation: "init", Memory: map[string]interface{}{"nonce": 1}})
+	trace.AddState(ExecutionState{Operation: "next"})
+	if _, err := trace.JumpToStep(1); err != nil {
+		t.Fatalf("JumpToStep failed: %v", err)
+	}
+
+	viewer := NewInteractiveViewer(trace)
+	viewer.fetchDelay = 100 * time.Millisecond
+
+	out := captureOutput(func() {
+		viewer.displayCurrentState()
+	})
+
+	if !strings.Contains(out, "[ FETCHING STATE... ]") {
+		t.Fatalf("expected loading placeholder, got: %s", out)
+	}
+}
+
+func TestInteractiveViewer_DisplayCurrentState_ClearsPlaceholderAfterFetch(t *testing.T) {
+	trace := NewExecutionTrace("tx", 1)
+	trace.AddState(ExecutionState{Operation: "init", Memory: map[string]interface{}{"nonce": 1}})
+	trace.AddState(ExecutionState{Operation: "next"})
+	if _, err := trace.JumpToStep(1); err != nil {
+		t.Fatalf("JumpToStep failed: %v", err)
+	}
+
+	viewer := NewInteractiveViewer(trace)
+	viewer.fetchDelay = 20 * time.Millisecond
+
+	_ = captureOutput(func() {
+		viewer.displayCurrentState()
+	})
+
+	select {
+	case fetched := <-viewer.fetchCh:
+		viewer.handleFetchedState(fetched)
+	case <-time.After(500 * time.Millisecond):
+		t.Fatal("timed out waiting for fetched state")
+	}
+
+	out := captureOutput(func() {
+		viewer.displayCurrentState()
+	})
+
+	if strings.Contains(out, "[ FETCHING STATE... ]") {
+		t.Fatalf("expected placeholder to be cleared, got: %s", out)
+	}
+	if !strings.Contains(out, "Memory: 1 entries") {
+		t.Fatalf("expected reconstructed memory summary, got: %s", out)
+	}
+}
 
 func TestInteractiveViewer_StatusBarLineFormat(t *testing.T) {
 	trace := NewExecutionTrace("tx", 1)

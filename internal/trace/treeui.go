@@ -218,3 +218,14 @@ func (tr *TreeRenderer) SelectRow(row int) {
 
 
 
+// SelectNodeByID selects the first rendered row whose node ID matches nodeID.
+// Returns true when a matching node is found and selected.
+func (tr *TreeRenderer) SelectNodeByID(nodeID string) bool {
+	for i, node := range tr.nodes {
+		if node != nil && node.Node != nil && node.Node.ID == nodeID {
+			tr.SelectRow(i)
+			return true
+		}
+	}
+	return false
+}
