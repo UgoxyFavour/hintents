@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// Copyright 2026 Erst Users
+// SPDX-License-Identifier: Apache-2.0
+
 
 // Copyright (c) Hintents Authors.
 // SPDX-License-Identifier: Apache-2.0
